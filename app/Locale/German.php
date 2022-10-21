@@ -178,6 +178,7 @@ final class German implements Language
 			'ALBUM_IMAGES' => 'Bilder',
 			'ALBUM_VIDEOS' => 'Videos',
 			'ALBUM_SUBALBUMS' => 'Unteralben',
+			'ALBUM_OWNER' => 'Besitzer',
 			'ALBUM_SHARING' => 'Teilen',
 			'ALBUM_SHR_YES' => 'Ja',
 			'ALBUM_SHR_NO' => 'Nein',
@@ -216,7 +217,6 @@ final class German implements Language
 			'ALBUM_RESERVED' => 'Alle Rechte vorbehalten',
 			'ALBUM_SET_ORDER' => 'Reihenfolge festlegen',
 			'ALBUM_ORDERING' => 'Sortieren nach',
-			'ALBUM_OWNER' => 'Besitzer',
 
 			'PHOTO_ABOUT' => 'Über',
 			'PHOTO_BASICS' => 'Grundlegende Informationen',
