@@ -3,10 +3,10 @@
 namespace App\Http\Livewire\Sidebar;
 
 use App\Contracts\AbstractAlbum;
+use App\DTO\AlbumProtectionPolicy;
 use App\Models\Album as ModelsAlbum;
 use App\Models\Photo;
 use App\Models\TagAlbum;
-use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -33,11 +33,7 @@ class Album extends Component
 	public string $sorting_col;
 	public string $sorting_order;
 
-	public bool $is_public;
-	public bool $requires_link;
-	public bool $is_downloadable;
-	public bool $is_share_button_visible;
-	public bool $has_password;
+	public ?AlbumProtectionPolicy $policy = null;
 
 	public string $owner_name = '';
 	public string $license;
@@ -76,7 +72,7 @@ class Album extends Component
 	 *
 	 * @return void
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	private function load(AbstractAlbum $album): void
 	{
@@ -101,9 +97,7 @@ class Album extends Component
 
 		if ($album instanceof ModelsAlbum || $album instanceof TagAlbum) {
 			$this->created_at = $album->created_at->format('F Y');
-			$this->requires_link = $album->requires_link;
-
-			$this->has_password = $album->has_password;
+			$this->policy = $album->policy;
 		}
 
 		$counted = $album->photos->countBy(function (Photo $photo) {
@@ -111,9 +105,5 @@ class Album extends Component
 		})->all();
 		$this->photo_count = isset($counted['photos']) ? $counted['photos'] : 0;
 		$this->video_count = isset($counted['videos']) ? $counted['videos'] : 0;
-
-		$this->is_public = $album->is_public;
-		$this->is_downloadable = $album->is_downloadable;
-		$this->is_share_button_visible = $album->is_share_button_visible;
 	}
 }

@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\DTO\AlbumSortingCriterion;
 use App\DTO\PhotoSortingCriterion;
+use App\DTO\Rights\GlobalRightsDTO;
 use App\Exceptions\ConfigurationKeyMissingException;
+use App\Exceptions\Handler;
 use App\Exceptions\Internal\FrameworkException;
 use App\Exceptions\Internal\InvalidOrderDirectionException;
 use App\Exceptions\ModelDBException;
 use App\Exceptions\UnauthenticatedException;
 use App\Exceptions\VersionControlException;
-use App\Facades\Helpers;
 use App\Facades\Lang;
 use App\Http\Requests\Session\LoginRequest;
 use App\Legacy\AdminAuthentication;
@@ -19,26 +20,27 @@ use App\ModelFunctions\ConfigFunctions;
 use App\Models\Configs;
 use App\Models\Logs;
 use App\Models\User;
-use App\Policies\UserPolicy;
+use App\Policies\SettingsPolicy;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
+use Spatie\Feed\Helpers\FeedContentType;
 
 class SessionController extends Controller
 {
-	private ConfigFunctions $configFunctions;
-	private GitHubFunctions $gitHubFunctions;
-
 	/**
 	 * @param ConfigFunctions $configFunctions
 	 * @param GitHubFunctions $gitHubFunctions
+	 * @param Repository      $configRepository
 	 */
-	public function __construct(ConfigFunctions $configFunctions, GitHubFunctions $gitHubFunctions)
-	{
-		$this->configFunctions = $configFunctions;
-		$this->gitHubFunctions = $gitHubFunctions;
+	public function __construct(
+		private ConfigFunctions $configFunctions,
+		private GitHubFunctions $gitHubFunctions,
+		private Repository $configRepository,
+	) {
 	}
 
 	/**
@@ -63,24 +65,16 @@ class SessionController extends Controller
 				// If the session is unauthenticated ('user' === null), but grants admin rights nonetheless,
 				// the front-end shows the dialog to create an admin account.
 				$return['user'] = null;
-				$return['rights'] = [
-					'is_admin' => true,
-					'is_locked' => false,
-					'may_upload' => true,
-				];
+				$return['rights'] = GlobalRightsDTO::ofUnregisteredAdmin();
 			} else {
 				/** @var User|null $user */
 				$user = Auth::user();
 				$return['user'] = $user?->toArray();
-				$return['rights'] = [
-					'is_admin' => Gate::check(UserPolicy::IS_ADMIN, User::class),
-					'is_locked' => !Gate::check(UserPolicy::CAN_EDIT_SETTINGS, User::class), // the use of the negation should be removed later
-					'may_upload' => Gate::check(UserPolicy::CAN_UPLOAD, User::class),
-				];
+				$return['rights'] = GlobalRightsDTO::ofCurrentUser();
 			}
 
 			// Load configuration settings acc. to authentication status
-			if ($return['rights']['is_admin'] === true) {
+			if (Gate::check(SettingsPolicy::CAN_EDIT, [Configs::class])) {
 				// Admin rights (either properly authenticated or not registered)
 				$return['config'] = $this->configFunctions->admin();
 				$return['config']['location'] = base_path('public/');
@@ -105,10 +99,29 @@ class SessionController extends Controller
 			unset($return['config']['sorting_photos_col']);
 			unset($return['config']['sorting_photos_order']);
 
-			// Device dependent settings
-			$deviceType = Helpers::getDeviceType();
-			// UI behaviour needs to be slightly modified if client is a TV
-			$return['config_device'] = $this->configFunctions->get_config_device($deviceType);
+			// Add each RSS feed to the configuration
+			// The code is taken from Spatie\Feed\resources\views\links.blade.php
+			$return['config']['feeds'] = [];
+			if (Configs::getValueAsBool('rss_enable')) {
+				try {
+					/** @var array<string, array{format: ?string, title: ?string}> $feeds */
+					$feeds = $this->configRepository->get('feed.feeds', []);
+					foreach ($feeds as $name => $feed) {
+						$return['config']['rss_feeds'][] = [
+							'url' => route("feeds.{$name}"),
+							'mimetype' => FeedContentType::forLink($feed['format'] ?? 'atom'),
+							'title' => $feed['title'] ?? '',
+						];
+					}
+				} catch (\Throwable $e) {
+					// do nothing, but report the exception, if the
+					// configuration for the RSS feed cannot be loaded or
+					// if the route to any RSS feed or the mime type of any
+					// feed cannot be resolved
+					Handler::reportSafely($e);
+					$return['config']['feeds'] = [];
+				}
+			}
 
 			// we also return the local
 			$return['locale'] = Lang::get_lang();

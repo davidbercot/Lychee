@@ -14,10 +14,13 @@ namespace Tests\Feature\Lib;
 
 use Illuminate\Testing\TestResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Tests\Feature\Traits\CatchFailures;
 use Tests\TestCase;
 
 class AlbumsUnitTest
 {
+	use CatchFailures;
+
 	private TestCase $testCase;
 
 	public function __construct(TestCase $testCase)
@@ -45,7 +48,7 @@ class AlbumsUnitTest
 			'title' => $title,
 			'parent_id' => $parent_id,
 		]);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}
@@ -73,7 +76,7 @@ class AlbumsUnitTest
 			'title' => $title,
 			'tags' => $tags,
 		]);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}
@@ -96,6 +99,30 @@ class AlbumsUnitTest
 		?string $assertSee = null
 	): void {
 		$response = $this->testCase->postJson('/api/Album::move', [
+			'albumID' => $to,
+			'albumIDs' => $ids,
+		]);
+		$this->assertStatus($response, $expectedStatusCode);
+		if ($assertSee) {
+			$response->assertSee($assertSee, false);
+		}
+	}
+
+	/**
+	 * Move albums.
+	 *
+	 * @param string[]    $ids
+	 * @param string|null $to
+	 * @param int         $expectedStatusCode
+	 * @param string|null $assertSee
+	 */
+	public function merge(
+		array $ids,
+		?string $to,
+		int $expectedStatusCode = 204,
+		?string $assertSee = null
+	): void {
+		$response = $this->testCase->postJson('/api/Album::merge', [
 			'albumID' => $to,
 			'albumIDs' => $ids,
 		]);
@@ -125,7 +152,7 @@ class AlbumsUnitTest
 			'/api/Album::get',
 			['albumID' => $id]
 		);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}
@@ -152,7 +179,7 @@ class AlbumsUnitTest
 			'/api/Album::unlock',
 			['albumID' => $id, 'password' => $password]
 		);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}
@@ -176,7 +203,7 @@ class AlbumsUnitTest
 			'/api/Album::setTitle',
 			['albumIDs' => [$id], 'title' => $title]
 		);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}
@@ -199,6 +226,30 @@ class AlbumsUnitTest
 		$response = $this->testCase->postJson(
 			'/api/Album::setDescription',
 			['albumID' => $id, 'description' => $description]
+		);
+		$this->assertStatus($response, $expectedStatusCode);
+		if ($assertSee) {
+			$response->assertSee($assertSee, false);
+		}
+	}
+
+	/**
+	 * Change cover.
+	 *
+	 * @param string      $id
+	 * @param string|null $photoID
+	 * @param int         $expectedStatusCode
+	 * @param string|null $assertSee
+	 */
+	public function set_cover(
+		string $id,
+		?string $photoID,
+		int $expectedStatusCode = 204,
+		?string $assertSee = null
+	): void {
+		$response = $this->testCase->postJson(
+			'/api/Album::setCover',
+			['albumID' => $id, 'photoID' => $photoID]
 		);
 		$response->assertStatus($expectedStatusCode);
 		if ($assertSee) {
@@ -224,7 +275,7 @@ class AlbumsUnitTest
 			'albumID' => $id,
 			'license' => $license,
 		]);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}
@@ -251,7 +302,7 @@ class AlbumsUnitTest
 			'sorting_column' => $sortingCol,
 			'sorting_order' => $sortingOrder,
 		]);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}
@@ -259,41 +310,38 @@ class AlbumsUnitTest
 
 	/**
 	 * @param string      $id
-	 * @param bool        $full_photo
-	 * @param bool        $public
-	 * @param bool        $requiresLink
-	 * @param bool        $nsfw
-	 * @param bool        $downloadable
-	 * @param bool        $share_button_visible
-	 * @param string|null $password             `null` does not change password
-	 *                                          settings;
-	 *                                          the empty string `''` removes
-	 *                                          a (potentially set) password;
-	 *                                          a non-empty string sets the
-	 *                                          password accordingly
+	 * @param bool        $grants_full_photo_access
+	 * @param bool        $is_public
+	 * @param bool        $is_link_required
+	 * @param bool        $is_nsfw
+	 * @param bool        $grants_downloadable
+	 * @param string|null $password                 `null` does not change password
+	 *                                              settings;
+	 *                                              the empty string `''` removes
+	 *                                              a (potentially set) password;
+	 *                                              a non-empty string sets the
+	 *                                              password accordingly
 	 * @param int         $expectedStatusCode
 	 * @param string|null $assertSee
 	 */
 	public function set_protection_policy(
 		string $id,
-		bool $full_photo = true,
-		bool $public = true,
-		bool $requiresLink = false,
-		bool $nsfw = false,
-		bool $downloadable = true,
-		bool $share_button_visible = true,
+		bool $grants_full_photo_access = true,
+		bool $is_public = true,
+		bool $is_link_required = false,
+		bool $is_nsfw = false,
+		bool $grants_downloadable = true,
 		?string $password = null,
 		int $expectedStatusCode = 204,
 		?string $assertSee = null
 	): void {
 		$params = [
-			'grants_full_photo' => $full_photo,
+			'grants_full_photo_access' => $grants_full_photo_access,
 			'albumID' => $id,
-			'is_public' => $public,
-			'requires_link' => $requiresLink,
-			'is_nsfw' => $nsfw,
-			'is_downloadable' => $downloadable,
-			'is_share_button_visible' => $share_button_visible,
+			'is_public' => $is_public,
+			'is_link_required' => $is_link_required,
+			'is_nsfw' => $is_nsfw,
+			'grants_download' => $grants_downloadable,
 		];
 
 		if ($password !== null) {
@@ -301,7 +349,7 @@ class AlbumsUnitTest
 		}
 
 		$response = $this->testCase->postJson('/api/Album::setProtectionPolicy', $params);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}
@@ -323,7 +371,7 @@ class AlbumsUnitTest
 			'albumID' => $id,
 			'show_tags' => $tags,
 		]);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}
@@ -369,7 +417,7 @@ class AlbumsUnitTest
 		?string $assertSee = null
 	): void {
 		$response = $this->testCase->postJson('/api/Album::delete', ['albumIDs' => $ids]);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}
@@ -395,7 +443,7 @@ class AlbumsUnitTest
 			'albumID' => $id,
 			'includeSubAlbums' => $includeSubAlbums,
 		]);
-		$response->assertStatus($expectedStatusCode);
+		$this->assertStatus($response, $expectedStatusCode);
 		if ($assertSee) {
 			$response->assertSee($assertSee, false);
 		}

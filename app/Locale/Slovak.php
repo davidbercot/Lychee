@@ -261,10 +261,6 @@ final class Slovak implements Language
 			'PHOTO_FOCAL' => 'Fokus',
 			'PHOTO_ISO' => 'ISO %s',
 			'PHOTO_SHARING' => 'Zdieľať',
-			'PHOTO_SHR_PUBLIC' => 'Verejný',
-			'PHOTO_SHR_ALB' => 'Ano (album)',
-			'PHOTO_SHR_PHT' => 'Ano (obrázok)',
-			'PHOTO_SHR_NO' => 'Nie',
 			'PHOTO_DELETE' => 'Zmazať obrázok',
 			'PHOTO_KEEP' => 'Obrázok ponechať',
 			'PHOTO_DELETE_CONFIRMATION' => 'Ste si istý, že chcete obrázok „%s“ zmazať?  Táto akcia je nevratná!',
@@ -287,6 +283,8 @@ final class Slovak implements Language
 			'PHOTO_EDIT_SHARING_TEXT' => 'Vlastnosti zdieľania tejto fotografie sa zmenia na nasledujúce:',
 			'PHOTO_NO_EDIT_SHARING_TEXT' => 'Pretože je táto fotografia umiestnená vo verejnom albume, zdedí nastavenie viditeľnosti daného albumu. Jeho aktuálna viditeľnosť je uvedená len na informačné účely.',
 			'PHOTO_EDIT_GLOBAL_SHARING_TEXT' => 'Viditeľnosť tejto fotografie je možné doladiť pomocou globálnych nastavení. Jeho aktuálna viditeľnosť je uvedená len na informačné účely.',
+			'PHOTO_NEW_CREATED_AT' => 'Enter the upload date for this photo. mm/dd/yyyy, hh:mm [am/pm]',
+			'PHOTO_SET_CREATED_AT' => 'Set upload date',
 
 			'LOADING' => 'Nahráva sa',
 			'ERROR' => 'Chyba',
@@ -308,11 +306,11 @@ final class Slovak implements Language
 			'SETTINGS_SUCCESS_IMAGE_OVERLAY' => 'EXIF-Overlay nastavenia aktualizované',
 			'SETTINGS_SUCCESS_PUBLIC_SEARCH' => 'Verejné vyhľadávanie bolo aktualizované',
 			'SETTINGS_SUCCESS_LICENSE' => 'Prednastavená licencia aktualizovaná',
-			'SETTINGS_SUCCESS_CSS' => 'CSS aktualizované',
-			'SETTINGS_SUCCESS_UPDATE' => 'Nastavenia úspešne aktualizované',
 			'SETTINGS_SUCCESS_MAP_DISPLAY' => 'Nastavenie zobrazenia mapy aktualizované',
 			'SETTINGS_SUCCESS_MAP_DISPLAY_PUBLIC' => 'Map display settings for public albums updated',
 			'SETTINGS_SUCCESS_MAP_PROVIDER' => 'Map provider settings updated',
+			'SETTINGS_SUCCESS_CSS' => 'CSS aktualizované',
+			'SETTINGS_SUCCESS_UPDATE' => 'Nastavenia úspešne aktualizované',
 			'SETTINGS_DROPBOX_KEY' => 'Dropbox API Key',
 			'SETTINGS_ADVANCED_WARNING_EXPL' => 'Zmena rozšírených nastavení môže mať negatívny vplyv na stabilitu, bezpečnosť a rýchlosť tejto aplikácie. Upravujte len to, o čom presne viete, čo robíte.',
 			'SETTINGS_ADVANCED_SAVE' => 'Zmeny uložiť, riziko je známe!',
@@ -407,6 +405,8 @@ final class Slovak implements Language
 			'NSFW_VISIBLE_TEXT_2' => 'If the album is public, it is still accessible, just hidden from the view and <b>can be revealed by pressing <kbd>H</kbd></b>.',
 			'SETTINGS_SUCCESS_NSFW_VISIBLE' => 'Default sensitive album visibility updated with success.',
 
+			'NSFW_BANNER' => '<h1>Sensitive content</h1><p>This album contains sensitive content which some people may find offensive or disturbing.</p><p>Tap to consent.</p>',
+
 			'VIEW_NO_RESULT' => 'Žiadny výsledok',
 			'VIEW_NO_PUBLIC_ALBUMS' => 'Žiadne verejné albumy',
 			'VIEW_NO_CONFIGURATION' => 'Žiadna konfigurácia',
@@ -464,7 +464,7 @@ final class Slovak implements Language
 
 			'ABOUT_SUBTITLE' => 'Vlastný hostovaný manažment obrázkov!',
 			'ABOUT_DESCRIPTION' => '<a target=\'_blank\' href=\'%s\'>Lychee</a> je open-source nástroj, bežiaci na vašom vlastnom serveri alebo v cloude. Inštalácia je otázkou sekúnd. Nahrať, spravovať a zdieľať obrázky ako v natívnej aplikácii. Lychee ponúka všetko čo potrebujete vy a vaše obrázky pre bezpečné uloženie.',
-			'FOOTER_COPYRIGHT' => 'Všetky obrázky na tejto webovej stránke sú chránené autorským právom %1$s &copy; %2$s',
+			'FOOTER_COPYRIGHT' => 'Všetky obrázky na tejto webovej stránke sú chránené autorským právom %1$s © %2$s',
 			'HOSTED_WITH_LYCHEE' => 'Hostované s Lychee',
 
 			'URL_COPY_TO_CLIPBOARD' => 'Skopírovať do schránky',
@@ -508,7 +508,7 @@ final class Slovak implements Language
 			'CAMERA_DATE' => 'Camera date',
 			'NEW_PASSWORD' => 'new password',
 			'ALLOW_UPLOADS' => 'Allow uploads',
-			'RESTRICTED_ACCOUNT' => 'Restricted account',
+			'ALLOW_USER_SELF_EDIT' => 'Allow self-management of user account',
 			'OSM_CONTRIBUTORS' => 'OpenStreetMap contributors',
 		];
 	}

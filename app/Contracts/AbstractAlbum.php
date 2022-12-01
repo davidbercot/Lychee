@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Livewire\Wireable;
 
 /**
- * Interface BaseAlbum.
+ * Interface AbsractAlbum.
  *
  * This is the common interface with the minimal set of functions which is
  * provided by *all* albums even the true smart albums like the album
@@ -20,7 +20,7 @@ use Livewire\Wireable;
  * Hence, this interface does *not* declares properties which are typical
  * for persistable models like `created_at`, etc., because the built-in
  * smart models exist "forever".
- * See {@link \App\Contracts\BaseAlbum} for the common interface of
+ * See {@link \App\Models\Extensions\BaseAlbum} for the common interface of
  * all models which are persisted to DB.
  *
  * @property string     $id
@@ -28,8 +28,8 @@ use Livewire\Wireable;
  * @property Collection $photos
  * @property Thumb|null $thumb
  * @property bool       $is_public
- * @property bool       $is_downloadable
- * @property bool       $is_share_button_visible
+ * @property bool       $grants_download
+ * @property bool       $grants_full_photo_access
  */
 interface AbstractAlbum extends \JsonSerializable, Arrayable, Jsonable, Wireable
 {

@@ -4,6 +4,7 @@ namespace App\Models\Extensions;
 
 use App\Contracts\AbstractAlbum;
 use App\Contracts\HasRandomID;
+use App\DTO\AlbumProtectionPolicy;
 use App\DTO\PhotoSortingCriterion;
 use App\Factories\AlbumFactory;
 use App\Models\BaseAlbumImpl;
@@ -28,16 +29,16 @@ use Livewire\Wireable;
  * @property Carbon                     $updated_at
  * @property string|null                $description
  * @property bool                       $is_nsfw
- * @property bool                       $grants_full_photo
+ * @property bool                       $is_link_required
  * @property int                        $owner_id
  * @property User                       $owner
  * @property Collection                 $shared_with
- * @property bool                       $requires_link
  * @property string|null                $password
- * @property bool                       $has_password
+ * @property bool                       $is_password_required
  * @property Carbon|null                $min_taken_at
  * @property Carbon|null                $max_taken_at
  * @property PhotoSortingCriterion|null $sorting
+ * @property AlbumProtectionPolicy      $policy
  * @property BaseAlbumImpl              $base_class
  */
 abstract class BaseAlbum extends Model implements AbstractAlbum, HasRandomID, Wireable

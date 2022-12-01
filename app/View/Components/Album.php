@@ -29,9 +29,9 @@ class Album extends Component
 		$this->is_nsfw = $data instanceof BaseAlbum && $data->is_nsfw && Configs::getValueAsBool('nsfw_blur');
 		$this->thumb = $data->thumb;
 		$this->title = $data->title;
-		$this->is_public = isset($data->is_public) && $data->is_public;
-		$this->require_link = $data instanceof BaseAlbum && $data->requires_link;
-		$this->has_password = $data instanceof BaseAlbum && $data->has_password;
+		$this->is_public = $data->policy->is_public;
+		$this->require_link = $data->policy->is_link_required;
+		$this->has_password = $data->policy->is_password_required;
 		$this->is_tag_album = $data instanceof TagAlbum;
 		$this->has_cover_id = $data instanceof AlbumModel && $data->cover_id !== null && $data->cover_id === $data->thumb->id;
 		$this->has_subalbum = $data instanceof AlbumModel && !$data->isLeaf();

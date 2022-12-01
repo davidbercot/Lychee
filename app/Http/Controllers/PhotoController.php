@@ -12,9 +12,9 @@ use App\Contracts\InternalLycheeException;
 use App\Contracts\LycheeException;
 use App\Exceptions\MediaFileOperationException;
 use App\Exceptions\ModelDBException;
-use App\Exceptions\UnauthorizedException;
 use App\Http\Requests\Photo\AddPhotoRequest;
 use App\Http\Requests\Photo\ArchivePhotosRequest;
+use App\Http\Requests\Photo\ClearSymLinkRequest;
 use App\Http\Requests\Photo\DeletePhotosRequest;
 use App\Http\Requests\Photo\DuplicatePhotosRequest;
 use App\Http\Requests\Photo\GetPhotoRequest;
@@ -25,18 +25,17 @@ use App\Http\Requests\Photo\SetPhotoPublicRequest;
 use App\Http\Requests\Photo\SetPhotosStarredRequest;
 use App\Http\Requests\Photo\SetPhotosTagsRequest;
 use App\Http\Requests\Photo\SetPhotosTitleRequest;
+use App\Http\Requests\Photo\SetPhotoUploadDate;
 use App\Image\TemporaryLocalFile;
 use App\Image\UploadedFile;
 use App\ModelFunctions\SymLinkFunctions;
 use App\Models\Configs;
 use App\Models\Photo;
-use App\Policies\UserPolicy;
 use App\SmartAlbums\StarredAlbum;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class PhotoController extends Controller
@@ -275,6 +274,21 @@ class PhotoController extends Controller
 	}
 
 	/**
+	 * Sets the license of the photo.
+	 *
+	 * @param SetPhotoUploadDate $request
+	 *
+	 * @return void
+	 *
+	 * @throws LycheeException
+	 */
+	public function setUploadDate(SetPhotoUploadDate $request): void
+	{
+		$request->photo()->created_at = $request->requestDate();
+		$request->photo()->save();
+	}
+
+	/**
 	 * Delete one or more photos.
 	 *
 	 * @param DeletePhotosRequest $request
@@ -327,16 +341,15 @@ class PhotoController extends Controller
 	/**
 	 * GET to manually clear the symlinks.
 	 *
+	 * @param ClearSymLinkRequest $request
+	 *
 	 * @return void
 	 *
 	 * @throws ModelDBException
 	 * @throws LycheeException
 	 */
-	public function clearSymLink(): void
+	public function clearSymLink(ClearSymLinkRequest $request): void
 	{
-		if (!Gate::check(UserPolicy::IS_ADMIN)) {
-			throw new UnauthorizedException('Admin privileges required');
-		}
 		$this->symLinkFunctions->clearSymLink();
 	}
 }
