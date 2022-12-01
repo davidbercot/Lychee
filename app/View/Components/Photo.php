@@ -29,7 +29,7 @@ class Photo extends Component
 	public string $srcset = '';
 	public string $srcset2x = '';
 
-	public bool $layout = false;
+	public bool $is_square_layout = false;
 	public int $_w = 200;
 	public int $_h = 200;
 
@@ -54,7 +54,7 @@ class Photo extends Component
 		$this->class .= $data->isVideo() ? ' video' : '';
 		$this->class .= $data->live_photo_url !== null ? ' livephoto' : '';
 
-		$this->layout = Configs::getValueAsInt('layout') === 0;
+		$this->is_square_layout = Configs::getValueAsInt('layout') === 0;
 
 		$this->src = URL::asset('img/placeholder.png');
 
@@ -81,7 +81,7 @@ class Photo extends Component
 
 		// Probably this code needs some fix/refactoring, too. However, where is this method invoked and
 		// what is the structure of the passed `data` array? (Could find any invocation.)
-		if ($this->layout) {
+		if ($this->is_square_layout) {
 			$thumbUrl = $thumb?->url;
 			$thumb2xUrl = $thumb2x?->url;
 		} elseif ($small !== null) {
@@ -115,7 +115,7 @@ class Photo extends Component
 		$this->src = sprintf("src='%s'", $this->src);
 		$this->srcset = sprintf("data-src='%s'", URL::asset($thumbUrl));
 
-		if ($this->layout) {
+		if ($this->is_square_layout) {
 			$thumb2x_src = sprintf("data-srcset='%s 2x'", URL::asset($thumb2xUrl));
 		} else {
 			$thumb2x_src = sprintf("data-srcset='%s %dw, %s %dw'", URL::asset($thumbUrl), $dim, URL::asset($thumb2xUrl), $dim2x);

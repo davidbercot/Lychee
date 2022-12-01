@@ -56,7 +56,7 @@ class AlbumProtectionPolicy extends ArrayableDTO
 	/**
 	 * Given a {@link BaseAlbum}, returns the Protection Policy associated to it.
 	 *
-	 * @param Album $baseAlbum
+	 * @param BaseAlbum $baseAlbum
 	 *
 	 * @return AlbumProtectionPolicy
 	 */

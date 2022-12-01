@@ -3,35 +3,48 @@
 namespace App\View\Components;
 
 use App\Contracts\AbstractAlbum;
+use App\DTO\AlbumProtectionPolicy;
 use App\Models\Album as AlbumModel;
 use App\Models\Configs;
 use App\Models\Extensions\BaseAlbum;
 use App\Models\Extensions\Thumb;
 use App\Models\TagAlbum;
+use App\SmartAlbums\BaseSmartAlbum;
 use Illuminate\View\Component;
 
 class Album extends Component
 {
 	public string $id;
 	public string $title;
-	public bool $is_nsfw;
 	public ?Thumb $thumb;
+
+	public bool $is_nsfw;
 	public bool $is_public;
-	public bool $has_password;
+	public bool $is_link_required;
+	public bool $is_password_required;
+
 	public bool $is_tag_album;
 	public bool $has_cover_id;
 	public bool $has_subalbum;
-	public bool $require_link;
 
 	public function __construct(AbstractAlbum $data)
 	{
 		$this->id = $data->id;
-		$this->is_nsfw = $data instanceof BaseAlbum && $data->is_nsfw && Configs::getValueAsBool('nsfw_blur');
 		$this->thumb = $data->thumb;
 		$this->title = $data->title;
-		$this->is_public = $data->policy->is_public;
-		$this->require_link = $data->policy->is_link_required;
-		$this->has_password = $data->policy->is_password_required;
+
+		if ($data instanceof BaseSmartAlbum) {
+			$policy = AlbumProtectionPolicy::ofSmartAlbum($data);
+		} else {
+			/** @var BaseAlbum $data */
+			$policy = AlbumProtectionPolicy::ofBaseAlbum($data);
+		}
+
+		$this->is_nsfw = $policy->is_nsfw && Configs::getValueAsBool('nsfw_blur');
+		$this->is_public = $policy->is_public;
+		$this->is_link_required = $policy->is_link_required;
+		$this->is_password_required = $policy->is_password_required;
+
 		$this->is_tag_album = $data instanceof TagAlbum;
 		$this->has_cover_id = $data instanceof AlbumModel && $data->cover_id !== null && $data->cover_id === $data->thumb->id;
 		$this->has_subalbum = $data instanceof AlbumModel && !$data->isLeaf();

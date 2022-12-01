@@ -7,8 +7,6 @@ use App\Models\Logs;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
-use InvalidArgumentException;
-use Throwable;
 
 /**
  * This defines the Login Form used in modals.
@@ -69,10 +67,10 @@ class Login extends BaseForm
 	 *
 	 * @return void
 	 *
-	 * @throws Throwable
+	 * @throws \Throwable
 	 * @throws ValidationException
 	 * @throws BindingResolutionException
-	 * @throws InvalidArgumentException
+	 * @throws \InvalidArgumentException
 	 * @throws QueryBuilderException
 	 */
 	public function submit(): void

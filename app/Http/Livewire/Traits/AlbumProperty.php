@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Traits;
 use App\Contracts\AbstractAlbum;
 use App\Models\Extensions\BaseAlbum;
 use App\SmartAlbums\BaseSmartAlbum;
-use Exception;
 
 /**
  * This trait is use to take care and simulate an AbstractAlbum attribute.
@@ -36,7 +35,7 @@ trait AlbumProperty
 	 *
 	 * @return void
 	 *
-	 * @throws Exception album class is not recognized
+	 * @throws \Exception album class is not recognized
 	 */
 	protected function loadAlbum(AbstractAlbum $album): void
 	{
