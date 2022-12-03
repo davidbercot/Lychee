@@ -30,9 +30,9 @@
 		<x-icons.icon class='badge--visible badge--list' icon='clock' />
 	@endif
 	@if ($is_public)
-		<x-icons.icon class='badge--visible {{ $require_link ? "badge--hidden" : "badge--not--hidden"}} icn-share' icon='eye' />
+		<x-icons.icon class='badge--visible {{ $is_link_required ? "badge--hidden" : "badge--not--hidden"}} icn-share' icon='eye' />
 	@endif
-	@if ($has_password)
+	@if ($is_password_required)
 		<x-icons.icon class='badge--visible' icon='lock-locked' />
 	@endif
 	@if ($is_tag_album == "1")

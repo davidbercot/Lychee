@@ -33,15 +33,13 @@
 @if(Auth::check())
 <x-atoms.section head='{{ Lang::get("ALBUM_SHARING") }}' >
 	<x-atoms.line-bool valueFalse='{{ Lang::get("ALBUM_SHR_NO") }}' valueTrue='{{ Lang::get("ALBUM_SHR_YES") }}'
-	head='{{ Lang::get("ALBUM_PUBLIC") }}' :value='$is_public' />
+	head='{{ Lang::get("ALBUM_PUBLIC") }}' :value='$this->policy->is_public' />
 	<x-atoms.line-bool valueFalse='{{ Lang::get("ALBUM_SHR_NO") }}' valueTrue='{{ Lang::get("ALBUM_SHR_YES") }}'
-	head='{{ Lang::get("ALBUM_HIDDEN") }}' :value='$requires_link' />
+	head='{{ Lang::get("ALBUM_HIDDEN") }}' :value='$this->policy->is_link_required' />
 	<x-atoms.line-bool valueFalse='{{ Lang::get("ALBUM_SHR_NO") }}' valueTrue='{{ Lang::get("ALBUM_SHR_YES") }}'
-	head='{{ Lang::get("ALBUM_DOWNLOADABLE") }}' :value='$is_downloadable' />
+	head='{{ Lang::get("ALBUM_DOWNLOADABLE") }}' :value='$this->policy->grants_download' />
 	<x-atoms.line-bool valueFalse='{{ Lang::get("ALBUM_SHR_NO") }}' valueTrue='{{ Lang::get("ALBUM_SHR_YES") }}'
-	head='{{ Lang::get("ALBUM_SHARE_BUTTON_VISIBLE") }}' :value='$is_share_button_visible' />
-	<x-atoms.line-bool valueFalse='{{ Lang::get("ALBUM_SHR_NO") }}' valueTrue='{{ Lang::get("ALBUM_SHR_YES") }}'
-	head='{{ Lang::get("ALBUM_PASSWORD") }}' :value='$has_password' />
+	head='{{ Lang::get("ALBUM_PASSWORD") }}' :value='$this->policy->is_password_required' />
 	<x-atoms.line head='{{ Lang::get("ALBUM_OWNER") }}' :value='$owner_name' />
 </x-atoms.section>
 @endif

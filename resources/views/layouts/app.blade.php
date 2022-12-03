@@ -18,9 +18,6 @@
 
 	<link type="text/css" rel="stylesheet" href="{{ URL::asset(Helpers::cacheBusting('css/app.css')) }}">
 	{{-- <link type="text/css" rel="stylesheet" href="{{ URL::asset(Helpers::cacheBusting('dist/user.css')) }}"> --}}
-	@if (Helpers::getDeviceType()=="television")
-	<link type="text/css" rel="stylesheet" href="{{ URL::asset(Helpers::cacheBusting('dist/TV.css')) }}">
-	@endif
 
 	{{-- @if($rss_enable)
 	  @include('feed::links')

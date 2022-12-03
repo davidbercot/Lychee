@@ -33,7 +33,7 @@ class Album extends Component
 	public string $sorting_col;
 	public string $sorting_order;
 
-	public ?AlbumProtectionPolicy $policy = null;
+	protected ?AlbumProtectionPolicy $policy = null;
 
 	public string $owner_name = '';
 	public string $license;
@@ -84,7 +84,7 @@ class Album extends Component
 			$this->children_count = $album->children->count();
 			$this->sorting_col = $album->sorting_col ?? '';
 			$this->sorting_order = $album->sorting_order ?? '';
-			$this->owner_name = $album->owner->getNameAttribute();
+			$this->owner_name = $album->owner->name;
 			$this->license = $album->license;
 		} else {
 			$this->description = '';
@@ -105,5 +105,15 @@ class Album extends Component
 		})->all();
 		$this->photo_count = isset($counted['photos']) ? $counted['photos'] : 0;
 		$this->video_count = isset($counted['videos']) ? $counted['videos'] : 0;
+	}
+
+	/**
+	 * Album property to support the multiple type.
+	 *
+	 * @return AbstractAlbum
+	 */
+	public function getPolicyProperty(): AlbumProtectionPolicy
+	{
+		return $this->policy ?? AlbumProtectionPolicy::ofDefaultPrivate();
 	}
 }
