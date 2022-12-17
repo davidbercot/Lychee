@@ -8,6 +8,7 @@ parameters:
 		- app
 		- scripts
 		- lang
+		- database/migrations
 	stubFiles:
 		# these can be removed after https://github.com/thecodingmachine/safe/issues/283 has been merged
 		- phpstan/stubs/Wireable.stub
@@ -23,7 +24,7 @@ parameters:
 		- '#Dynamic call to static method (Illuminate\\Database\\Query\\Builder|Illuminate\\Database\\Eloquent\\(Builder|Relations\\.*)|App\\Models\\Extensions\\FixedQueryBuilder)(<.*>)?::insert\(\).#'
 		- '#Dynamic call to static method (Illuminate\\Database\\Query\\Builder|Illuminate\\Database\\Eloquent\\(Builder|Relations\\.*)|App\\Models\\Extensions\\FixedQueryBuilder)(<.*>)?::select\(\).#'
 		- '#Dynamic call to static method (Illuminate\\Database\\Query\\Builder|Illuminate\\Database\\Eloquent\\(Builder|Relations\\.*)|App\\Models\\Extensions\\FixedQueryBuilder)(<.*>)?::orderBy\(\)#'
-		- '#Dynamic call to static method (Illuminate\\Database\\Query\\Builder|Illuminate\\Database\\Eloquent\\(Builder|Relations\\.*)|App\\Models\\Extensions\\FixedQueryBuilder)(<.*>)?::where(Not)?(Null|In|Between|Exists|Column)?\(\).#'
+		- '#Dynamic call to static method (Illuminate\\Database\\Query\\Builder|Illuminate\\Database\\Eloquent\\(Builder|Relations\\.*)|App\\Models\\Extensions\\FixedQueryBuilder)(<.*>)?::where(Not)?(Null|In|Between|Exists|Column|Year|Month|Day)?\(\).#'
 		- '#Dynamic call to static method (Illuminate\\Database\\Query\\Builder|Illuminate\\Database\\Eloquent\\(Builder|Relations\\.*)|App\\Models\\Extensions\\FixedQueryBuilder)(<.*>)?::delete\(\)#'
 		- '#Dynamic call to static method (Illuminate\\Database\\Query\\Builder|Illuminate\\Database\\Eloquent\\(Builder|Relations\\.*)|App\\Models\\Extensions\\FixedQueryBuilder)(<.*>)?::without\(\)#'
 		- '#Dynamic call to static method (Illuminate\\Database\\Query\\Builder|Illuminate\\Database\\Eloquent\\(Builder|Relations\\.*)|App\\Models\\Extensions\\FixedQueryBuilder)(<.*>)?::count\(\).#'
@@ -64,3 +65,17 @@ parameters:
 
 		# False positive from maennchen/ZipStream
 		- '#Call to an undefined static method ZipStream\\Option\\Method::(STORE|DEFLATE)\(\)#'
+
+		# Migrations
+		-
+			message: '#Function define is unsafe to use.#'
+			paths:
+				- database/migrations
+		-
+			message: '#Variable property access on (mixed|object).#'
+			paths:
+				- database/migrations
+		-
+			message: '#Access to an undefined property object::\$value.#'
+			paths:
+				- database/migrations

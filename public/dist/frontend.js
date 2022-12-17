@@ -983,7 +983,7 @@ var _templateObject = _taggedTemplateLiteral(["<svg class='iconic ", "'><use xli
     _templateObject4 = _taggedTemplateLiteral(["<div id='multiselect' style='top: ", "px; left: ", "px;'></div>"], ["<div id='multiselect' style='top: ", "px; left: ", "px;'></div>"]),
     _templateObject5 = _taggedTemplateLiteral(["<span title='", "'>", "</span>$", ""], ["<span title='", "'>", "</span>$", ""]),
     _templateObject6 = _taggedTemplateLiteral(["\n\t\t\t<div class='album ", " ", "'\n\t\t\t\tdata-id='", "'\n\t\t\t\tdata-nsfw='", "'\n\t\t\t\tdata-tabindex='", "'\n\t\t\t\tdraggable='", "'\n\t\t\t\t", ">\n\t\t\t\t  ", "\n\t\t\t\t  ", "\n\t\t\t\t  ", "\n\t\t\t\t<div class='overlay'>\n\t\t\t\t\t<h1 title='$", "'>$", "</h1>\n\t\t\t\t\t<a>", "</a>\n\t\t\t\t</div>\n\t\t\t"], ["\n\t\t\t<div class='album ", " ", "'\n\t\t\t\tdata-id='", "'\n\t\t\t\tdata-nsfw='", "'\n\t\t\t\tdata-tabindex='", "'\n\t\t\t\tdraggable='", "'\n\t\t\t\t", ">\n\t\t\t\t  ", "\n\t\t\t\t  ", "\n\t\t\t\t  ", "\n\t\t\t\t<div class='overlay'>\n\t\t\t\t\t<h1 title='$", "'>$", "</h1>\n\t\t\t\t\t<a>", "</a>\n\t\t\t\t</div>\n\t\t\t"]),
-    _templateObject7 = _taggedTemplateLiteral(["\n\t\t\t\t<div class='badges'>\n\t\t\t\t\t<a class='badge ", " icn-warning'>", "</a>\n\t\t\t\t\t<a class='badge ", " icn-star'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", " ", " icn-share'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", " icn-cover'>", "</a>\n\t\t\t\t</div>\n\t\t\t\t"], ["\n\t\t\t\t<div class='badges'>\n\t\t\t\t\t<a class='badge ", " icn-warning'>", "</a>\n\t\t\t\t\t<a class='badge ", " icn-star'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", " ", " icn-share'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", " icn-cover'>", "</a>\n\t\t\t\t</div>\n\t\t\t\t"]),
+    _templateObject7 = _taggedTemplateLiteral(["\n\t\t\t\t<div class='badges'>\n\t\t\t\t\t<a class='badge ", " icn-warning'>", "</a>\n\t\t\t\t\t<a class='badge ", " icn-star'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", " ", " icn-share'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", " icn-cover'>", "</a>\n\t\t\t\t</div>\n\t\t\t\t"], ["\n\t\t\t\t<div class='badges'>\n\t\t\t\t\t<a class='badge ", " icn-warning'>", "</a>\n\t\t\t\t\t<a class='badge ", " icn-star'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", " ", " icn-share'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", "'>", "</a>\n\t\t\t\t\t<a class='badge ", " icn-cover'>", "</a>\n\t\t\t\t</div>\n\t\t\t\t"]),
     _templateObject8 = _taggedTemplateLiteral(["\n\t\t\t\t<div class='subalbum_badge'>\n\t\t\t\t\t<a class='badge badge--folder'>", "</a>\n\t\t\t\t</div>"], ["\n\t\t\t\t<div class='subalbum_badge'>\n\t\t\t\t\t<a class='badge badge--folder'>", "</a>\n\t\t\t\t</div>"]),
     _templateObject9 = _taggedTemplateLiteral(["\n\t\t\t<div class='photo ", "' data-album-id='", "' data-id='", "' data-tabindex='", "'\n\t\t\tdraggable='", "'\n\t\t\tondragstart='lychee.startDrag(event)'\n\t\t\tondragend='lychee.endDrag(event)'>\n\t\t\t\t", "\n\t\t\t\t<div class='overlay'>\n\t\t\t\t\t<h1 title='$", "'>$", "</h1>\n\t\t\t"], ["\n\t\t\t<div class='photo ", "' data-album-id='", "' data-id='", "' data-tabindex='", "'\n\t\t\tdraggable='", "'\n\t\t\tondragstart='lychee.startDrag(event)'\n\t\t\tondragend='lychee.endDrag(event)'>\n\t\t\t\t", "\n\t\t\t\t<div class='overlay'>\n\t\t\t\t\t<h1 title='$", "'>$", "</h1>\n\t\t\t"]),
     _templateObject10 = _taggedTemplateLiteral(["<a><span title='", "'>", "</span>", "</a>"], ["<a><span title='", "'>", "</span>", "</a>"]),
@@ -1393,7 +1393,7 @@ var album = {
  * @returns {boolean}
  */
 album.isSmartID = function (id) {
-	return id === SmartAlbumID.UNSORTED || id === SmartAlbumID.STARRED || id === SmartAlbumID.PUBLIC || id === SmartAlbumID.RECENT;
+	return id === SmartAlbumID.UNSORTED || id === SmartAlbumID.STARRED || id === SmartAlbumID.PUBLIC || id === SmartAlbumID.RECENT || id === SmartAlbumID.ON_THIS_DAY;
 };
 
 /**
@@ -2154,7 +2154,7 @@ album.setSorting = function (albumID) {
   * @returns {void}
   */
 	var initSetAlbumSortingDialog = function initSetAlbumSortingDialog(formElements, dialog) {
-		formElements.sorting_col.labels[0].textContent = lychee.locale["SORT_DIALOG_ATTRIBUTE_LABEL"];
+		formElements.sorting_col.parentElement.previousElementSibling.textContent = lychee.locale["SORT_DIALOG_ATTRIBUTE_LABEL"];
 		formElements.sorting_col.item(1).textContent = lychee.locale["SORT_PHOTO_SELECT_1"];
 		formElements.sorting_col.item(2).textContent = lychee.locale["SORT_PHOTO_SELECT_2"];
 		formElements.sorting_col.item(3).textContent = lychee.locale["SORT_PHOTO_SELECT_3"];
@@ -2163,7 +2163,7 @@ album.setSorting = function (albumID) {
 		formElements.sorting_col.item(6).textContent = lychee.locale["SORT_PHOTO_SELECT_6"];
 		formElements.sorting_col.item(7).textContent = lychee.locale["SORT_PHOTO_SELECT_7"];
 
-		formElements.sorting_order.labels[0].textContent = lychee.locale["SORT_DIALOG_ORDER_LABEL"];
+		formElements.sorting_order.parentElement.previousElementSibling.textContent = lychee.locale["SORT_DIALOG_ORDER_LABEL"];
 		formElements.sorting_order.item(1).textContent = lychee.locale["SORT_ASCENDING"];
 		formElements.sorting_order.item(2).textContent = lychee.locale["SORT_DESCENDING"];
 
@@ -3010,6 +3010,10 @@ albums.localizeSmartAlbums = function (data) {
 	if (data.recent) {
 		data.recent.title = lychee.locale["RECENT"];
 	}
+
+	if (data.on_this_day) {
+		data.on_this_day.title = lychee.locale["ON_THIS_DAY"];
+	}
 };
 
 /**
@@ -3137,7 +3141,7 @@ albums.isTagAlbum = function (albumID) {
  * @returns {boolean}
  */
 albums.isEmpty = function () {
-	return albums.json === null || albums.isSmartAlbumEmpty(albums.json.smart_albums.public) && albums.isSmartAlbumEmpty(albums.json.smart_albums.recent) && albums.isSmartAlbumEmpty(albums.json.smart_albums.starred) && albums.isSmartAlbumEmpty(albums.json.smart_albums.unsorted) && albums.json.albums.length === 0 && albums.json.shared_albums.length === 0 && albums.json.tag_albums.length === 0;
+	return albums.json === null || albums.isSmartAlbumEmpty(albums.json.smart_albums.public) && albums.isSmartAlbumEmpty(albums.json.smart_albums.recent) && albums.isSmartAlbumEmpty(albums.json.smart_albums.starred) && albums.isSmartAlbumEmpty(albums.json.smart_albums.unsorted) && albums.isSmartAlbumEmpty(albums.json.smart_albums.on_this_day) && albums.json.albums.length === 0 && albums.json.shared_albums.length === 0 && albums.json.tag_albums.length === 0;
 };
 
 /**
@@ -3145,7 +3149,7 @@ albums.isEmpty = function () {
  * @returns {boolean}
  */
 albums.isSmartAlbumEmpty = function (smartAlbum) {
-	return smartAlbum === null || !smartAlbum.photos || smartAlbum.photos.length === 0;
+	return !smartAlbum || !smartAlbum.photos || smartAlbum.photos.length === 0;
 };
 
 //noinspection HtmlUnknownTarget
@@ -3300,7 +3304,7 @@ build.album = function (data) {
 
 	if (data.rights.can_edit && !disabled) {
 		var isCover = album.json && album.json.cover_id && data.thumb.id === album.json.cover_id;
-		html += lychee.html(_templateObject7, data.policy && data.policy.is_nsfw ? "badge--nsfw" : "", build.iconic("warning"), data.id === SmartAlbumID.STARRED ? "badge--star" : "", build.iconic("star"), data.id === SmartAlbumID.RECENT ? "badge--visible badge--list" : "", build.iconic("clock"), data.id === SmartAlbumID.PUBLIC || data.policy && data.policy.is_public ? "badge--visible" : "", data.policy && data.policy.is_link_required ? "badge--hidden" : "badge--not--hidden", build.iconic("eye"), data.id === SmartAlbumID.UNSORTED ? "badge--visible" : "", build.iconic("list"), data.policy && data.policy.is_password_required ? "badge--visible" : "", build.iconic("lock-unlocked"), data.is_tag_album ? "badge--tag" : "", build.iconic("tag"), isCover ? "badge--cover" : "", build.iconic("folder-cover"));
+		html += lychee.html(_templateObject7, data.policy && data.policy.is_nsfw ? "badge--nsfw" : "", build.iconic("warning"), data.id === SmartAlbumID.STARRED ? "badge--star" : "", build.iconic("star"), data.id === SmartAlbumID.RECENT ? "badge--visible badge--list" : "", build.iconic("clock"), data.id === SmartAlbumID.ON_THIS_DAY ? "badge--tag badge--list" : "", build.iconic("calendar"), data.id === SmartAlbumID.PUBLIC || data.policy && data.policy.is_public ? "badge--visible" : "", data.policy && data.policy.is_link_required ? "badge--hidden" : "badge--not--hidden", build.iconic("eye"), data.id === SmartAlbumID.UNSORTED ? "badge--visible" : "", build.iconic("list"), data.policy && data.policy.is_password_required ? "badge--visible" : "", build.iconic("lock-unlocked"), data.is_tag_album ? "badge--tag" : "", build.iconic("tag"), isCover ? "badge--cover" : "", build.iconic("folder-cover"));
 	}
 
 	if (data.albums && data.albums.length > 0 || data.has_albums) {
@@ -5021,7 +5025,7 @@ header.setMode = function (mode) {
 				tabindex.makeUnfocusable(_e14);
 			}
 
-			if (albumID === SmartAlbumID.STARRED || albumID === SmartAlbumID.PUBLIC || albumID === SmartAlbumID.RECENT) {
+			if (albumID === SmartAlbumID.STARRED || albumID === SmartAlbumID.PUBLIC || albumID === SmartAlbumID.RECENT || albumID === SmartAlbumID.ON_THIS_DAY) {
 				$("#button_nsfw_album, #button_info_album, #button_trash_album, #button_visibility_album, #button_sharing_album_users, #button_move_album").hide();
 				if (album.isUploadable()) {
 					$(".button_add, .header__divider", "#lychee_toolbar_album").show();
@@ -5896,17 +5900,12 @@ loadingBar.hide = function (force) {
 
 var lychee = {
 	/**
-  * The version of the backend in human-readable, printable form, e.g. `'4.6.3'`.
-  *
-  * TODO: Make format of this attribute and {@link lychee.update_json} consistent.
-  *
-  * TODO: Let the backend report the version as a proper object with properties for major, minor and patch level
-  *
-  * @type {string}
+  * The version of the backend in human-readable
+  * @type {Version}
   */
-	version: "",
+	version: null,
 
-	updatePath: "https://LycheeOrg.github.io/update.json",
+	updateGit: "https://github.com/LycheeOrg/Lychee",
 	updateURL: "https://github.com/LycheeOrg/Lychee/releases",
 	website: "https://LycheeOrg.github.io",
 
@@ -6129,16 +6128,7 @@ var lychee = {
 	hide_content_during_imgview: false,
 
 	checkForUpdates: true,
-	/**
-  * The most recent, available Lychee version encoded as an integer, e.g. 040506.
-  *
-  * TODO: Make format of this attribute and {@link lychee.version} consistent.
-  *
-  * TODO: Let the backend report the version as a proper object with properties for major, minor and patch level
-  *
-  * @type {number}
-  */
-	update_json: 0,
+	update_json: false,
 	update_available: false,
 	new_photos_notification: false,
 	/** @type {?SortingCriterion} */
@@ -6186,7 +6176,7 @@ lychee.logs = function () {
  * @returns {void}
  */
 lychee.aboutDialog = function () {
-	var aboutDialogBody = "\n\t\t<h1>Lychee <span class=\"version-number\"></span></h1>\n\t\t<p class=\"update-status up-to-date\"><a target='_blank' href='" + lychee.updateURL + "'></a></p>\n\t\t<h2></h2>\n\t\t<p class=\"about-desc\"></p>";
+	var aboutDialogBody = "\n\t\t<h1>Lychee <span class=\"version-number\"></span></h1>\n\t\t<p class=\"update-status up-to-date-release\"><a target='_blank' href='" + lychee.updateURL + "'></a></p>\n\t\t<p class=\"update-status up-to-date-git\"><a target='_blank' href='" + lychee.updateGit + "'></a></p>\n\t\t<h2></h2>\n\t\t<p class=\"about-desc\"></p>";
 
 	/**
   * @param {ModalDialogFormElements} formElements
@@ -6194,12 +6184,17 @@ lychee.aboutDialog = function () {
   * @returns {void}
   */
 	var initAboutDialog = function initAboutDialog(formElements, dialog) {
-		dialog.querySelector("span.version-number").textContent = lychee.version;
-		var updClassList = dialog.querySelector("p.update-status").classList;
+		dialog.querySelector("span.version-number").textContent = lychee.version.major + "." + lychee.version.minor + "." + lychee.version.patch;
+		// If Release is available : show release
+		// If Git is available : show git
 		if (lychee.update_available) {
-			updClassList.remove("up-to-date");
+			dialog.querySelector("p.up-to-date-release a").textContent = lychee.locale["UPDATE_AVAILABLE"];
+			dialog.querySelector("p.up-to-date-release").classList.remove("up-to-date-release");
+		} else if (lychee.update_json) {
+			dialog.querySelector("p.up-to-date-git a").textContent = lychee.locale["UPDATE_AVAILABLE"];
+			dialog.querySelector("p.up-to-date-git").classList.remove("up-to-date-git");
 		}
-		dialog.querySelector("p a").textContent = lychee.locale["UPDATE_AVAILABLE"];
+
 		dialog.querySelector("h2").textContent = lychee.locale["ABOUT_SUBTITLE"];
 		// We should not use `innerHTML`, but either hard-code HTML or build it
 		// programmatically.
@@ -6272,21 +6267,7 @@ lychee.parseInitializationData = function (data) {
 	lychee.rights = data.rights;
 	lychee.update_json = data.update_json;
 	lychee.update_available = data.update_available;
-
-	// Here we convert a version string with six digits but without dots
-	// as reported by the backend, e.g. `'040603'`, into a dot-separated,
-	// human-readable version string `'4.6.3'`.
-	// It is ridiculous how many variants we have to represent a version
-	// number.
-	// At least there are the following three:
-	//  - a string in human-readable format with dots: `'4.6.3'`
-	//  - a string with six digits, zero-padded, without dots: `'040603'`
-	//  - an integer: `40603`
-	// TODO: Let the backend report the version as a proper object with properties for major, minor and patch level
-	if (data.config.version !== "") {
-		var digits = data.config.version.match(/.{1,2}/g);
-		lychee.version = parseInt(digits[0]).toString() + "." + parseInt(digits[1]).toString() + "." + parseInt(digits[2]).toString();
-	}
+	lychee.version = data.config.version;
 
 	// we copy the locale that exists only.
 	// This ensures forward and backward compatibility.
@@ -6560,7 +6541,7 @@ lychee.login = function (data) {
  * @returns {void}
  */
 lychee.loginDialog = function () {
-	var loginDialogBody = "\n\t\t<a id='signInKeyLess' class=\"button\"><svg class='iconic'><use xlink:href='#key'/></svg></a>\n\t\t<form class=\"force-first-child\">\n\t\t\t<div class=\"input-group stacked\">\n\t\t\t\t<input class='text' name='username' autocomplete='username' type='text' autocapitalize='off' data-tabindex='" + tabindex.get_next_tab_index() + "'>\n\t\t\t</div>\n\t\t\t<div class=\"input-group stacked\">\n\t\t\t\t<input class='text' name='password' autocomplete='current-password' type='password' data-tabindex='" + tabindex.get_next_tab_index() + "'>\n\t\t\t</div>\n\t\t</form>\n\t\t<p class='version'>Lychee <span class='version-number'></span><span class=\"update-status up-to-date\"> &#8211; <a target='_blank' href='" + lychee.updateURL + "' data-tabindex='-1'></a></span></p>\n\t\t";
+	var loginDialogBody = "\n\t\t<a id='signInKeyLess' class=\"button\"><svg class='iconic'><use xlink:href='#key'/></svg></a>\n\t\t<form class=\"force-first-child\">\n\t\t\t<div class=\"input-group stacked\">\n\t\t\t\t<input class='text' name='username' autocomplete='username' type='text' autocapitalize='off' data-tabindex='" + tabindex.get_next_tab_index() + "'>\n\t\t\t</div>\n\t\t\t<div class=\"input-group stacked\">\n\t\t\t\t<input class='text' name='password' autocomplete='current-password' type='password' data-tabindex='" + tabindex.get_next_tab_index() + "'>\n\t\t\t</div>\n\t\t</form>\n\t\t<p class='version'>Lychee <span class='version-number'></span>\n\t\t\t<span class=\"update-status up-to-date-release\"> &#8211; <a target='_blank' href='" + lychee.updateURL + "' data-tabindex='-1'></a></span>\n\t\t\t<span class=\"update-status up-to-date-git\"> &#8211; <a target='_blank' href='" + lychee.updateGit + "' data-tabindex='-1'></a></span>\n\t\t</p>\n\t\t";
 
 	/**
   * @param {ModalDialogFormElements} formElements
@@ -6575,12 +6556,20 @@ lychee.loginDialog = function () {
 
 		formElements.username.placeholder = lychee.locale["USERNAME"];
 		formElements.password.placeholder = lychee.locale["PASSWORD"];
-		dialog.querySelector("span.version-number").textContent = lychee.version;
-		var updClassList = dialog.querySelector("span.update-status").classList;
-		if (lychee.update_available) {
-			updClassList.remove("up-to-date");
+		if (!!lychee.version) {
+			dialog.querySelector("span.version-number").textContent = lychee.version.major + "." + lychee.version.minor + "." + lychee.version.patch;
+		} else {
+			dialog.querySelector("span.version-number").textContent = "";
 		}
-		dialog.querySelector("span.update-status a").textContent = lychee.locale["UPDATE_AVAILABLE"];
+		// If Release is available : show release
+		// If Git is available : show git
+		if (lychee.update_available) {
+			dialog.querySelector("span.up-to-date-release a").textContent = lychee.locale["UPDATE_AVAILABLE"];
+			dialog.querySelector("span.up-to-date-release").classList.remove("up-to-date-release");
+		} else if (lychee.update_json) {
+			dialog.querySelector("span.up-to-date-git a").textContent = lychee.locale["UPDATE_AVAILABLE"];
+			dialog.querySelector("span.up-to-date-git").classList.remove("up-to-date-git");
+		}
 
 		// This feels awkward, because this hooks into the modal dialog in some
 		// unpredictable way.
@@ -7608,6 +7597,7 @@ lychee.locale = {
 	STARRED: "Starred",
 	RECENT: "Recent",
 	PUBLIC: "Public",
+	ON_THIS_DAY: "On This Day",
 	NUM_PHOTOS: "Photos",
 
 	CREATE_ALBUM: "Create Album",
@@ -8188,6 +8178,9 @@ mapview.title = function (_albumID, _albumTitle) {
 			break;
 		case SmartAlbumID.UNSORTED:
 			lychee.setMetaData(lychee.locale["UNSORTED"]);
+			break;
+		case SmartAlbumID.ON_THIS_DAY:
+			lychee.setMetaData(lychee.locale["ON_THIS_DAY"]);
 			break;
 		case null:
 			lychee.setMetaData(lychee.locale["ALBUMS"]);
@@ -13360,7 +13353,7 @@ view.albums = {
 			var sharedData = "";
 
 			// Smart Albums
-			if (lychee.publicMode === false && (albums.json.smart_albums.public || albums.json.smart_albums.recent || albums.json.smart_albums.starred || albums.json.smart_albums.unsorted || albums.json.tag_albums.length > 0)) {
+			if (lychee.publicMode === false && (albums.json.smart_albums.public || albums.json.smart_albums.recent || albums.json.smart_albums.starred || albums.json.smart_albums.unsorted || albums.json.smart_albums.on_this_day || albums.json.tag_albums.length > 0)) {
 				smartData = build.divider(lychee.locale["SMART_ALBUMS"]);
 			}
 			if (albums.json.smart_albums.unsorted) {
@@ -13378,6 +13371,10 @@ view.albums = {
 			if (albums.json.smart_albums.recent) {
 				albums.parse(albums.json.smart_albums.recent);
 				smartData += build.album(albums.json.smart_albums.recent, !lychee.rights.root_album.can_edit);
+			}
+			if (albums.json.smart_albums.on_this_day) {
+				albums.parse(albums.json.smart_albums.on_this_day);
+				smartData += build.album(albums.json.smart_albums.on_this_day);
 			}
 
 			// Tag albums
@@ -13473,6 +13470,9 @@ view.album = {
 					break;
 				case SmartAlbumID.UNSORTED:
 					lychee.setMetaData(lychee.locale["UNSORTED"]);
+					break;
+				case SmartAlbumID.ON_THIS_DAY:
+					lychee.setMetaData(lychee.locale["ON_THIS_DAY"]);
 					break;
 				default:
 					if (album.json.init) _sidebar.changeAttr("title", album.json.title);
@@ -15195,6 +15195,14 @@ visible.leftMenu = function () {
  */
 
 /**
+ * @typedef Version
+ *
+ * @property {int} major
+ * @property {int} minor
+ * @property {int} patch
+ */
+
+/**
  * @typedef Photo
  *
  * @property {string}       id
@@ -15366,18 +15374,20 @@ visible.leftMenu = function () {
  * @property {?SmartAlbum} starred
  * @property {?SmartAlbum} public
  * @property {?SmartAlbum} recent
+ * @property {?SmartAlbum} on_this_day
  */
 
 /**
  * The IDs of the built-in, smart albums.
  *
- * @type {Readonly<{RECENT: string, STARRED: string, PUBLIC: string, UNSORTED: string}>}
+ * @type {Readonly<{RECENT: string, STARRED: string, PUBLIC: string, UNSORTED: string, ON_THIS_DAY: string}>}
  */
 var SmartAlbumID = Object.freeze({
 	UNSORTED: "unsorted",
 	STARRED: "starred",
 	PUBLIC: "public",
-	RECENT: "recent"
+	RECENT: "recent",
+	ON_THIS_DAY: "on_this_day"
 });
 
 /**
@@ -15458,7 +15468,7 @@ var SmartAlbumID = Object.freeze({
  *
  * @property {?User} user
  * @property {GlobalRightsDTO} rights
- * @property {number} update_json - version number of latest available update
+ * @property {boolean} update_json
  * @property {boolean} update_available
  * @property {Object.<string, string>} locale
  * @property {ConfigurationData} config
@@ -15514,7 +15524,7 @@ var SmartAlbumID = Object.freeze({
  * @property {string}   swipe_tolerance_x        - actually a number
  * @property {string}   swipe_tolerance_y        - actually a number
  * @property {string}   upload_processing_limit  - actually a number
- * @property {string}   version                  - a string of 6 digits without separating dots, i.e. version 4.6.3 is reported as `'040603'`
+ * @property {?Version} version                  - Version number
  */
 
 /**

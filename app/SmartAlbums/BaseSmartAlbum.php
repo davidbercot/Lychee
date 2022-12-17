@@ -44,8 +44,8 @@ abstract class BaseSmartAlbum implements AbstractAlbum
 	protected bool $grants_download;
 	protected bool $grants_full_photo_access;
 	protected bool $is_public;
-	protected ?Thumb $thumb;
-	protected Collection $photos;
+	protected ?Thumb $thumb = null;
+	protected ?Collection $photos = null;
 	protected \Closure $smartPhotoCondition;
 
 	/**
@@ -61,7 +61,6 @@ abstract class BaseSmartAlbum implements AbstractAlbum
 			$this->is_public = $is_public;
 			$this->grants_download = Configs::getValueAsBool('grants_download');
 			$this->grants_full_photo_access = Configs::getValueAsBool('grants_full_photo_access');
-			$this->thumb = null;
 			$this->smartPhotoCondition = $smartCondition;
 		} catch (BindingResolutionException $e) {
 			throw new FrameworkException('Laravel\'s service container', $e);
@@ -89,7 +88,7 @@ abstract class BaseSmartAlbum implements AbstractAlbum
 	{
 		// Cache query result for later use
 		// (this mimics the behaviour of relations of true Eloquent models)
-		if (!isset($this->photos)) {
+		if ($this->photos === null) {
 			$sorting = PhotoSortingCriterion::createDefault();
 
 			$this->photos = (new SortingDecorator($this->photos()))
@@ -106,7 +105,7 @@ abstract class BaseSmartAlbum implements AbstractAlbum
 	 */
 	protected function getThumbAttribute(): ?Thumb
 	{
-		if (!isset($this->thumb)) {
+		if ($this->thumb === null) {
 			/*
 			 * Note, `photos()` already applies a "security filter" and
 			 * only returns photos which are accessible by the current
@@ -146,17 +145,12 @@ abstract class BaseSmartAlbum implements AbstractAlbum
 		//     relation has been loaded.
 		//     This avoids unnecessary hydration of photos if the album is
 		//     only used within a listing of sub-albums.
-		$result = [
+		return [
 			'id' => $this->id,
 			'title' => $this->title,
 			'thumb' => $this->getThumbAttribute(),
 			'policy' => AlbumProtectionPolicy::ofSmartAlbum($this),
+			'photos' => $this->photos?->toArray(),
 		];
-
-		if (isset($this->photos)) {
-			$result['photos'] = $this->photos->toArray();
-		}
-
-		return $result;
 	}
 }
