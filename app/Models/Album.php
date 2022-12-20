@@ -73,6 +73,7 @@ class Album extends BaseAlbum implements Node
 		'max_taken_at' => 'datetime',
 		'_lft' => 'integer',
 		'_rgt' => 'integer',
+		'num_children' => 'integer',
 	];
 
 	/**
