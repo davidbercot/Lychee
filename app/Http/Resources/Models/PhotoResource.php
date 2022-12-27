@@ -5,8 +5,10 @@ namespace App\Http\Resources\Models;
 use App\Enum\SizeVariantType;
 use App\Http\Resources\JsonResource;
 use App\Http\Resources\Rights\PhotoRightsResource;
+use App\Models\Extensions\SizeVariants;
 use App\Models\Photo;
 use App\Policies\PhotoPolicy;
+use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Support\Facades\Gate;
 
 class PhotoResource extends JsonResource
@@ -30,19 +32,22 @@ class PhotoResource extends JsonResource
 	 */
 	public function toArray($request)
 	{
+		/** @var SizeVariants|MissingValue $size_variants */
+		$size_variants = $this->whenRelationshipIsLoaded($this->photo, 'size_variants');
+		if ($size_variants instanceof MissingValue) {
+			$size_variants = null;
+		}
 		$downgrade = !Gate::check(PhotoPolicy::CAN_ACCESS_FULL_PHOTO, [Photo::class, $this->photo]) &&
 			!$this->photo->isVideo() &&
-			$this->photo->size_variants->hasMedium();
+			$size_variants?->hasMedium() === true;
 
-		// dd($this->photo->size_variants);
-
-		$medium = $this->photo->size_variants->getSizeVariant(SizeVariantType::MEDIUM);
-		$medium2x = $this->photo->size_variants->getSizeVariant(SizeVariantType::MEDIUM2X);
-		$original = $this->photo->size_variants->getSizeVariant(SizeVariantType::ORIGINAL);
-		$small = $this->photo->size_variants->getSizeVariant(SizeVariantType::SMALL);
-		$small2x = $this->photo->size_variants->getSizeVariant(SizeVariantType::SMALL2X);
-		$thumb = $this->photo->size_variants->getSizeVariant(SizeVariantType::THUMB);
-		$thumb2x = $this->photo->size_variants->getSizeVariant(SizeVariantType::THUMB2X);
+		$medium = $size_variants?->getSizeVariant(SizeVariantType::MEDIUM);
+		$medium2x = $size_variants?->getSizeVariant(SizeVariantType::MEDIUM2X);
+		$original = $size_variants?->getSizeVariant(SizeVariantType::ORIGINAL);
+		$small = $size_variants?->getSizeVariant(SizeVariantType::SMALL);
+		$small2x = $size_variants?->getSizeVariant(SizeVariantType::SMALL2X);
+		$thumb = $size_variants?->getSizeVariant(SizeVariantType::THUMB);
+		$thumb2x = $size_variants?->getSizeVariant(SizeVariantType::THUMB2X);
 
 		return [
 			'id' => $this->photo->id,

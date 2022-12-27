@@ -8,6 +8,7 @@ use App\Exceptions\MediaFileOperationException;
 use App\Exceptions\ModelDBException;
 use App\Models\Extensions\AlbumBuilder;
 use App\Models\Extensions\BaseAlbum;
+use App\Models\Extensions\ToArrayThrowsNotImplemented;
 use App\Relations\HasAlbumThumb;
 use App\Relations\HasManyChildAlbums;
 use App\Relations\HasManyChildPhotos;
@@ -44,6 +45,7 @@ use Kalnoy\Nestedset\NodeTrait;
 class Album extends BaseAlbum implements Node
 {
 	use NodeTrait;
+	use ToArrayThrowsNotImplemented;
 
 	/**
 	 * The model's attributes.
@@ -76,30 +78,9 @@ class Album extends BaseAlbum implements Node
 	];
 
 	/**
-	 * @var array<int, string> The list of attributes which exist as columns of the DB
-	 *                         relation but shall not be serialized to JSON
-	 */
-	protected $hidden = [
-		'base_class', // don't serialize base class as a relation, the attributes of the base class are flatly merged into the JSON result
-		'cover',      // instead of cover, serialize thumb
-		'_lft',
-		'_rgt',
-		'parent',     // avoid infinite recursions
-		'all_photos', // never serialize recursive child photos of an album, even if the relation is loaded
-		'track_short_path',
-	];
-
-	/**
 	 * The relationships that should always be eagerly loaded by default.
 	 */
 	protected $with = ['cover', 'cover.size_variants', 'thumb'];
-
-	/**
-	 * @var string[] The list of "virtual" attributes which do not exist as
-	 *               columns of the DB relation but which shall be appended to
-	 *               JSON from accessors
-	 */
-	protected $appends = ['track_url'];
 
 	/**
 	 * Return the relationship between this album and photos which are
@@ -171,21 +152,6 @@ class Album extends BaseAlbum implements Node
 		}
 
 		return $value;
-	}
-
-	public function toArray(): array
-	{
-		$result = parent::toArray();
-		$result['has_albums'] = !$this->isLeaf();
-
-		// The client expect the relation "children" to be named "albums".
-		// Rename it
-		if (key_exists('children', $result)) {
-			$result['albums'] = $result['children'];
-			unset($result['children']);
-		}
-
-		return $result;
 	}
 
 	/**

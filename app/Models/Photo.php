@@ -13,22 +13,20 @@ use App\Exceptions\Internal\ZeroModuloException;
 use App\Exceptions\MediaFileOperationException;
 use App\Exceptions\ModelDBException;
 use App\Facades\Helpers;
-use App\Http\Resources\Rights\PhotoRightsResource;
 use App\Image\Files\BaseMediaFile;
 use App\Models\Extensions\HasAttributesPatch;
 use App\Models\Extensions\HasBidirectionalRelationships;
 use App\Models\Extensions\HasRandomIDAndLegacyTimeBasedID;
 use App\Models\Extensions\SizeVariants;
 use App\Models\Extensions\ThrowsConsistentExceptions;
+use App\Models\Extensions\ToArrayThrowsNotImplemented;
 use App\Models\Extensions\UseFixedQueryBuilder;
 use App\Models\Extensions\UTCBasedTimes;
-use App\Policies\PhotoPolicy;
 use App\Relations\HasManySizeVariants;
 use App\Relations\LinkedPhotoCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use function Safe\preg_match;
 
@@ -82,6 +80,7 @@ class Photo extends Model
 	use HasBidirectionalRelationships;
 	/** @phpstan-use UseFixedQueryBuilder<Photo> */
 	use UseFixedQueryBuilder;
+	use ToArrayThrowsNotImplemented;
 
 	/**
 	 * @var string The type of the primary key
@@ -110,27 +109,6 @@ class Photo extends Model
 		'longitude' => 'float',
 		'altitude' => 'float',
 		'img_direction' => 'float',
-	];
-
-	/**
-	 * @var array<int,string> The list of attributes which exist as columns of the DB
-	 *                        relation but shall not be serialized to JSON
-	 */
-	protected $hidden = [
-		RandomID::LEGACY_ID_NAME,
-		'album',  // do not serialize relation in order to avoid infinite loops
-		'owner',  // do not serialize relation
-		'owner_id',
-		'live_photo_short_path', // serialize live_photo_url instead
-	];
-
-	/**
-	 * @var string[] The list of "virtual" attributes which do not exist as
-	 *               columns of the DB relation but which shall be appended to
-	 *               JSON from accessors
-	 */
-	protected $appends = [
-		'live_photo_url',
 	];
 
 	/**
@@ -367,37 +345,6 @@ class Photo extends Model
 	public function isRaw(): bool
 	{
 		return !$this->isPhoto() && !$this->isVideo();
-	}
-
-	/**
-	 * Serializes the model into an array.
-	 *
-	 * This method is also invoked by Eloquent when someone invokes
-	 * {@link Model::toJson()} or {@link Model::jsonSerialize()}.
-	 *
-	 * This method removes the URL to the full resolution of a photo, if the
-	 * client is not allowed to see that.
-	 *
-	 * @return array
-	 *
-	 * @throws IllegalOrderOfOperationException
-	 */
-	public function toArray(): array
-	{
-		$result = parent::toArray();
-
-		$result['rights'] = PhotoRightsResource::ofPhoto($this);
-
-		// Downgrades the accessible resolution of a photo
-		if (
-			!Gate::check(PhotoPolicy::CAN_ACCESS_FULL_PHOTO, [Photo::class, $this]) &&
-			!$this->isVideo() &&
-			($result['size_variants']['medium2x'] !== null || $result['size_variants']['medium'] !== null)
-		) {
-			unset($result['size_variants']['original']['url']);
-		}
-
-		return $result;
 	}
 
 	/**
