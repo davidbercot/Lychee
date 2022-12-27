@@ -13,6 +13,7 @@ use App\Actions\Album\SetProtectionPolicy;
 use App\Actions\Album\Unlock;
 use App\Contracts\Exceptions\LycheeException;
 use App\DTO\PositionData as PositionDataDTO;
+use App\Exceptions\Internal\LycheeLogicException;
 use App\Exceptions\MediaFileOperationException;
 use App\Exceptions\ModelDBException;
 use App\Http\Requests\Album\AddAlbumRequest;
@@ -90,7 +91,8 @@ class AlbumController extends Controller
 		return match (true) {
 			$request->album() instanceof BaseSmartAlbum => SmartAlbumResource::make($request->album()),
 			$request->album() instanceof TagAlbum => TagAlbumResource::make($request->album()),
-			$request->album() instanceof Album => AlbumResource::make($request->album())
+			$request->album() instanceof Album => AlbumResource::make($request->album()),
+			default => throw new LycheeLogicException('This should not happen')
 		};
 	}
 
