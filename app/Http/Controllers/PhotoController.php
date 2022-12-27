@@ -34,6 +34,7 @@ use App\Models\Configs;
 use App\Models\Photo;
 use App\SmartAlbums\StarredAlbum;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
@@ -319,11 +320,11 @@ class PhotoController extends Controller
 	 *
 	 * @throws ModelDBException
 	 */
-	public function duplicate(DuplicatePhotosRequest $request, Duplicate $duplicate): Photo|Collection
+	public function duplicate(DuplicatePhotosRequest $request, Duplicate $duplicate): ResourceCollection
 	{
 		$duplicates = $duplicate->do($request->photos(), $request->album());
 
-		return ($duplicates->count() === 1) ? $duplicates->first() : $duplicates;
+		return PhotoResource::collection($duplicates);
 	}
 
 	/**
