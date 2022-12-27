@@ -17,11 +17,6 @@ trait CatchFailures
 			$this->trimException($exception);
 			dump($exception);
 		}
-		if ($response->getStatusCode() !== $expectedStatusCode) {
-			$exception = $response->json();
-			$this->trimException($exception);
-			dump($exception);
-		}
 		$response->assertStatus($expectedStatusCode);
 	}
 
