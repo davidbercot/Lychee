@@ -26,6 +26,7 @@ use App\Http\Requests\Photo\SetPhotosStarredRequest;
 use App\Http\Requests\Photo\SetPhotosTagsRequest;
 use App\Http\Requests\Photo\SetPhotosTitleRequest;
 use App\Http\Requests\Photo\SetPhotoUploadDate;
+use App\Http\Resources\Models\PhotoCollection;
 use App\Http\Resources\Models\PhotoResource;
 use App\Image\Files\TemporaryLocalFile;
 use App\Image\Files\UploadedFile;
@@ -34,7 +35,6 @@ use App\Models\Configs;
 use App\Models\Photo;
 use App\SmartAlbums\StarredAlbum;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
@@ -316,15 +316,15 @@ class PhotoController extends Controller
 	 * @param DuplicatePhotosRequest $request
 	 * @param Duplicate              $duplicate
 	 *
-	 * @return ResourceCollection the collection of duplicated photos
+	 * @return PhotoCollection the collection of duplicated photos
 	 *
 	 * @throws ModelDBException
 	 */
-	public function duplicate(DuplicatePhotosRequest $request, Duplicate $duplicate): ResourceCollection
+	public function duplicate(DuplicatePhotosRequest $request, Duplicate $duplicate): PhotoCollection
 	{
 		$duplicates = $duplicate->do($request->photos(), $request->album());
 
-		return PhotoResource::collection($duplicates);
+		return new PhotoCollection($duplicates, 201);
 	}
 
 	/**

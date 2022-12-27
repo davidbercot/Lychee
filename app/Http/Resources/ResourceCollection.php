@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\JsonEncodingException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource as BaseJsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection as BaseResourceCollection;
 use Illuminate\Http\Resources\MissingValue;
 use function Safe\json_encode;
 
-class JsonResource extends BaseJsonResource
+class ResourceCollection extends BaseResourceCollection
 {
 	/**
 	 * We define a default constructor so it is no longer needed in other cases.
@@ -48,7 +49,7 @@ class JsonResource extends BaseJsonResource
 	 *
 	 * @return array
 	 */
-	public function toArrayRecursively($request = null): array
+	private function toArrayRecursively($request = null): array
 	{
 		/** @var array|Arrayable|\JsonSerializable $data */
 		$data = $this->toArray($request);
