@@ -316,7 +316,7 @@ class PhotoController extends Controller
 	 * @param DuplicatePhotosRequest $request
 	 * @param Duplicate              $duplicate
 	 *
-	 * @return Photo|Collection the duplicated photo or collection of duplicated photos
+	 * @return ResourceCollection the collection of duplicated photos
 	 *
 	 * @throws ModelDBException
 	 */
