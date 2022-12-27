@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Administration;
 
 use App\Actions\User\Create;
 use App\Actions\User\Save;
-use App\DTO\UserWithCapabilitiesDTO;
 use App\Exceptions\Internal\QueryBuilderException;
 use App\Exceptions\InvalidPropertyException;
 use App\Exceptions\ModelDBException;
@@ -24,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 class UsersController extends Controller
 {
 	/**
-	 * @return ResourceCollection<UserWithCapabilitiesDTO>
+	 * @return ResourceCollection<UserManagementResource>
 	 *
 	 * @throws QueryBuilderException
 	 */

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Administration;
 
 use App\Actions\Sharing\ListShare;
-use App\DTO\Shares;
 use App\Exceptions\Internal\QueryBuilderException;
 use App\Http\Requests\Sharing\AddSharesRequest;
 use App\Http\Requests\Sharing\DeleteSharingRequest;
