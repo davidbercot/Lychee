@@ -17,11 +17,11 @@ trait CatchFailures
 			$this->trimException($exception);
 			dump($exception);
 		}
-		// if ($response->getStatusCode() !== $expectedStatusCode) {
-		// 	$exception = $response->json();
-		// 	$this->trimException($exception);
-		// 	dump($exception);
-		// }
+		if ($response->getStatusCode() !== $expectedStatusCode) {
+			$exception = $response->json();
+			$this->trimException($exception);
+			dump($exception);
+		}
 		$response->assertStatus($expectedStatusCode);
 	}
 
@@ -42,9 +42,10 @@ trait CatchFailures
 	 */
 	private function trimException(array &$exception): void
 	{
-		$exception['trace'] = array_slice($exception['trace'], 0, 3);
-
-		if ($exception['previous_exception'] !== null) {
+		if (isset($exception['trace'])) {
+			$exception['trace'] = array_slice($exception['trace'], 0, 3);
+		}
+		if (isset($exception['previous_exception'])) {
 			$this->trimException($exception['previous_exception']);
 		}
 	}
