@@ -2,9 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\SmartAlbums\BaseSmartAlbum;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\JsonEncodingException;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\JsonResource as BaseJsonResource;
+use Illuminate\Http\Resources\MissingValue;
+use function Safe\json_encode;
 
 class JsonResource extends BaseJsonResource
 {
@@ -67,5 +72,69 @@ class JsonResource extends BaseJsonResource
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Convert the instance into a JSON string.
+	 *
+	 * The error message is inspired by {@link JsonEncodingException::forModel()}.
+	 *
+	 * @param int $options
+	 *
+	 * @return string
+	 *
+	 * @throws JsonEncodingException
+	 */
+	public function toJson($options = 0): string
+	{
+		try {
+			// Note, we must not use the option `JSON_THROW_ON_ERROR` here,
+			// because this does not clear `json_last_error()` from any
+			// previous, stalled error message.
+			// But `\Illuminate\Http\JsonResponse::setData()` falsy assumes
+			// that this method does so.
+			// Hence, we call `json_encode` _without_ specifying
+			// `JSON_THROW_ON_ERROR` and then mimic that behaviour.
+			$json = json_encode($this->jsonSerialize(), $options);
+			if (json_last_error() !== JSON_ERROR_NONE) {
+				// @codeCoverageIgnoreStart
+				throw new \JsonException(json_last_error_msg(), json_last_error());
+				// @codeCoverageIgnoreEnd
+			}
+
+			return $json;
+		} catch (\JsonException $e) {
+			throw new JsonEncodingException('Error encoding DTO [' . get_class($this) . ']', 0, $e);
+		}
+	}
+
+	/**
+	 * Retrieve a relationship if it has been loaded.
+	 *
+	 * @param string $relationship
+	 * @param mixed  $value
+	 * @param mixed  $default
+	 *
+	 * @return MissingValue|mixed
+	 */
+	protected function whenRelationshipIsLoaded(Model|BaseSmartAlbum $model, string $relationship, mixed $value = null, mixed $default = null): mixed
+	{
+		if (func_num_args() < 3) {
+			$default = new MissingValue();
+		}
+
+		if (!$model->relationLoaded($relationship)) {
+			return value($default);
+		}
+
+		if (func_num_args() === 1) {
+			return $model->{$relationship};  // @phpstan-ignore-line
+		}
+
+		if ($model->{$relationship} === null) {  // @phpstan-ignore-line
+			return null;
+		}
+
+		return value($value);
 	}
 }

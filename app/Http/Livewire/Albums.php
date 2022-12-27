@@ -4,13 +4,13 @@ namespace App\Http\Livewire;
 
 use App\Actions\Albums\Top;
 use App\Contracts\Exceptions\InternalLycheeException;
-use App\DTO\TopAlbums;
+use App\Http\Resources\Models\TopAlbumsResource;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Livewire\Component;
 
 class Albums extends Component
 {
-	private TopAlbums $topAlbums;
+	private TopAlbumsResource $topAlbums;
 
 	/**
 	 * Initialize component.
