@@ -8,10 +8,14 @@ use App\Models\TagAlbum;
 
 class TagAlbumResource extends JsonResource
 {
+	private TagAlbum $tagAlbum;
+
 	public function __construct(
-		private TagAlbum $tagAlbum
+		TagAlbum $tagAlbum,
+		int $status = 200
 	) {
-		parent::__construct();
+		parent::__construct($status);
+		$this->tagAlbum = $tagAlbum;
 	}
 
 	/**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Models\UserResource;
 use App\Http\Resources\Rights\GlobalRightsResource;
 use App\Metadata\Versions\FileVersion;
 use App\Metadata\Versions\GitHubVersion;

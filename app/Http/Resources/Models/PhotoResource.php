@@ -11,10 +11,14 @@ use Illuminate\Support\Facades\Gate;
 
 class PhotoResource extends JsonResource
 {
+	private Photo $photo;
+
 	public function __construct(
-		private Photo $photo
+		Photo $photo,
+		int $status = 200
 	) {
-		parent::__construct();
+		parent::__construct($status);
+		$this->photo = $photo;
 	}
 
 	/**

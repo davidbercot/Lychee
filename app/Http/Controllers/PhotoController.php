@@ -134,7 +134,7 @@ class PhotoController extends Controller
 
 		$photo = $create->add($copiedFile, $request->album());
 
-		return PhotoResource::make($photo);
+		return PhotoResource::make($photo, 201);
 	}
 
 	/**

@@ -8,10 +8,14 @@ use App\Models\Album;
 
 class AlbumResource extends JsonResource
 {
+	private Album $album;
+
 	public function __construct(
-		private Album $album
+		Album $album,
+		int $status = 200
 	) {
-		parent::__construct();
+		parent::__construct($status);
+		$this->album = $album;
 	}
 
 	/**

@@ -6,8 +6,8 @@ use App\Actions\Albums\PositionData;
 use App\Actions\Albums\Top;
 use App\Actions\Albums\Tree;
 use App\Contracts\Exceptions\LycheeException;
-use App\DTO\AlbumTree;
-use App\DTO\PositionData as PositionDataDTO;
+use App\Http\Resources\Models\AlbumForestResource;
+use App\Http\Resources\Models\PositionDataResource;
 use App\Http\Resources\Models\TopAlbumsResource;
 use App\Models\Configs;
 use Illuminate\Routing\Controller;
@@ -28,21 +28,21 @@ class AlbumsController extends Controller
 	}
 
 	/**
-	 * @return AlbumTree the full tree of visible albums
+	 * @return AlbumForestResource the full tree of visible albums
 	 *
 	 * @throws LycheeException
 	 */
-	public function tree(Tree $tree): AlbumTree
+	public function tree(Tree $tree): AlbumForestResource
 	{
 		return $tree->get();
 	}
 
 	/**
-	 * @return PositionDataDTO returns visible photos which have positioning data
+	 * @return PositionDataResource returns visible photos which have positioning data
 	 *
 	 * @throws LycheeException
 	 */
-	public function getPositionData(PositionData $positionData): PositionDataDTO
+	public function getPositionData(PositionData $positionData): PositionDataResource
 	{
 		return $positionData->do();
 	}

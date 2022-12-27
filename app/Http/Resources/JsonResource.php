@@ -7,6 +7,7 @@ use Illuminate\Container\Container;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\JsonEncodingException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource as BaseJsonResource;
 use Illuminate\Http\Resources\MissingValue;
 use function Safe\json_encode;
@@ -18,8 +19,9 @@ class JsonResource extends BaseJsonResource
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
+	public function __construct(
+		private int $status = 200
+	) {
 		parent::__construct(null);
 	}
 
@@ -136,5 +138,15 @@ class JsonResource extends BaseJsonResource
 		}
 
 		return value($value);
+	}
+
+	/**
+	 * @param \Illuminate\Http\Request $request
+	 *
+	 * @return JsonResponse
+	 */
+	public function toResponse($request): JsonResponse
+	{
+		return parent::toResponse($request)->setStatusCode($this->status);
 	}
 }
