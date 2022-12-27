@@ -24,7 +24,7 @@ class AlbumTreeResource extends JsonResource
 			'id' => $album->id,
 			'title' => $album->title,
 			'parent_id' => $album->parent_id,
-			'albums' => AlbumTreeResource::collection($this->whenLoaded('children')),
+			'albums' => $this->whenLoaded('children', AlbumTreeResource::collection($album->children), null),
 		];
 	}
 }

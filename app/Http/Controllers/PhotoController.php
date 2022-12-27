@@ -26,6 +26,7 @@ use App\Http\Requests\Photo\SetPhotosStarredRequest;
 use App\Http\Requests\Photo\SetPhotosTagsRequest;
 use App\Http\Requests\Photo\SetPhotosTitleRequest;
 use App\Http\Requests\Photo\SetPhotoUploadDate;
+use App\Http\Resources\Models\PhotoResource;
 use App\Image\Files\TemporaryLocalFile;
 use App\Image\Files\UploadedFile;
 use App\ModelFunctions\SymLinkFunctions;
@@ -56,18 +57,18 @@ class PhotoController extends Controller
 	 *
 	 * @param GetPhotoRequest $request
 	 *
-	 * @return Photo
+	 * @return PhotoResource
 	 */
-	public function get(GetPhotoRequest $request): Photo
+	public function get(GetPhotoRequest $request): PhotoResource
 	{
-		return $request->photo();
+		return PhotoResource::make($request->photo());
 	}
 
 	/**
 	 * Returns a random public photo (starred)
 	 * This is used in the Frame Controller.
 	 *
-	 * @return Photo
+	 * @return PhotoResource
 	 *
 	 * @throws ModelNotFoundException
 	 * @throws InternalLycheeException
@@ -75,14 +76,14 @@ class PhotoController extends Controller
 	 *
 	 * @noinspection PhpIncompatibleReturnTypeInspection
 	 */
-	public function getRandom(): Photo
+	public function getRandom(): PhotoResource
 	{
 		// PHPStan does not understand that `firstOrFail` returns `Photo`, but assumes that it returns `Model`
 		// @phpstan-ignore-next-line
-		return StarredAlbum::getInstance()
+		return PhotoResource::make(StarredAlbum::getInstance()
 			->photos()
 			->inRandomOrder()
-			->firstOrFail();
+			->firstOrFail());
 	}
 
 	/**
@@ -90,12 +91,12 @@ class PhotoController extends Controller
 	 *
 	 * @param AddPhotoRequest $request
 	 *
-	 * @return Photo
+	 * @return PhotoResource
 	 *
 	 * @throws LycheeException
 	 * @throws ModelNotFoundException
 	 */
-	public function add(AddPhotoRequest $request): Photo
+	public function add(AddPhotoRequest $request): PhotoResource
 	{
 		// This code is a nasty work-around which should not exist.
 		// PHP stores a temporary copy of the uploaded file without a file
@@ -131,7 +132,7 @@ class PhotoController extends Controller
 			Configs::getValueAsBool('skip_duplicates')
 		));
 
-		return $create->add($copiedFile, $request->album());
+		return PhotoResource::make($create->add($copiedFile, $request->album()));
 	}
 
 	/**

@@ -35,7 +35,7 @@ class TagAlbumResource extends JsonResource
 			'show_tags' => $this->tagAlbum->show_tags,
 
 			// children
-			'photos' => PhotoResource::collection($this->whenRelationshipIsLoaded($this->tagAlbum, 'photos')),
+			'photos' => $this->whenRelationshipIsLoaded($this->tagAlbum, 'photos', PhotoResource::collection($this->tagAlbum->photos), null),
 
 			// thumb
 			'thumb' => $this->tagAlbum->thumb,

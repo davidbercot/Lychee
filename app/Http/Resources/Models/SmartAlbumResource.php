@@ -30,8 +30,7 @@ class SmartAlbumResource extends JsonResource
 			'title' => $this->smartAlbum->title,
 
 			// children
-			// 'photos' => PhotoResource::collection($this->smartAlbum->photos),
-			'photos' => PhotoResource::collection($this->whenRelationshipIsLoaded($this->smartAlbum, 'photos')),
+			'photos' => $this->whenRelationshipIsLoaded($this->smartAlbum, 'photos', PhotoResource::collection($this->smartAlbum->photos), null),
 
 			// thumb
 			'thumb' => $this->smartAlbum->thumb,

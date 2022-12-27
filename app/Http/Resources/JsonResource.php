@@ -127,7 +127,7 @@ class JsonResource extends BaseJsonResource
 			return value($default);
 		}
 
-		if (func_num_args() === 1) {
+		if (func_num_args() === 2) {
 			return $model->{$relationship};  // @phpstan-ignore-line
 		}
 

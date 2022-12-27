@@ -8,7 +8,7 @@ use App\Models\SizeVariant;
 class SizeVariantResource extends JsonResource
 {
 	public function __construct(
-		private ?SizeVariant $sizeVariant,
+		private SizeVariant $sizeVariant,
 		private bool $downgrade = false,
 	) {
 		parent::__construct();
@@ -23,16 +23,12 @@ class SizeVariantResource extends JsonResource
 	 */
 	public function toArray($request)
 	{
-		if ($this->sizeVariant === null) {
-			return null;
-		}
-
 		return [
 			'type' => $this->sizeVariant->type,
 			'filesize' => $this->sizeVariant->filesize,
 			'height' => $this->sizeVariant->height,
 			'width' => $this->sizeVariant->width,
-			'url' => $this->when(!$this->withUrl, $this->sizeVariant->url),
+			'url' => $this->when(!$this->downgrade, $this->sizeVariant->url),
 		];
 	}
 }

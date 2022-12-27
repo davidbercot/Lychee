@@ -12,7 +12,6 @@ use App\Actions\Album\PositionData;
 use App\Actions\Album\SetProtectionPolicy;
 use App\Actions\Album\Unlock;
 use App\Contracts\Exceptions\LycheeException;
-use App\DTO\AbstractAlbumDTO;
 use App\DTO\PositionData as PositionDataDTO;
 use App\Exceptions\MediaFileOperationException;
 use App\Exceptions\ModelDBException;
@@ -35,9 +34,13 @@ use App\Http\Requests\Album\SetAlbumsTitleRequest;
 use App\Http\Requests\Album\SetAlbumTagsRequest;
 use App\Http\Requests\Album\SetAlbumTrackRequest;
 use App\Http\Requests\Album\UnlockAlbumRequest;
+use App\Http\Resources\Models\AlbumResource;
+use App\Http\Resources\Models\SmartAlbumResource;
+use App\Http\Resources\Models\TagAlbumResource;
 use App\Models\Album;
 use App\Models\Extensions\BaseAlbum;
 use App\Models\TagAlbum;
+use App\SmartAlbums\BaseSmartAlbum;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\App;
@@ -80,11 +83,15 @@ class AlbumController extends Controller
 	 *
 	 * @param GetAlbumRequest $request
 	 *
-	 * @return AbstractAlbumDTO
+	 * @return AlbumResource|TagAlbumResource|SmartAlbumResource
 	 */
-	public function get(GetAlbumRequest $request): AbstractAlbumDTO
+	public function get(GetAlbumRequest $request): AlbumResource|TagAlbumResource|SmartAlbumResource
 	{
-		return new AbstractAlbumDTO($request->album());
+		return match (true) {
+			$request->album() instanceof BaseSmartAlbum => SmartAlbumResource::make($request->album()),
+			$request->album() instanceof TagAlbum => TagAlbumResource::make($request->album()),
+			$request->album() instanceof Album => AlbumResource::make($request->album())
+		};
 	}
 
 	/**
