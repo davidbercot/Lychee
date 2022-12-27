@@ -48,7 +48,6 @@ class PhotoResource extends JsonResource
 			'checksum' => $this->photo->checksum,
 			'created_at' => $this->photo->created_at,
 			'description' => $this->photo->description,
-			'filesize' => $this->photo->filesize,
 			'focal' => $this->photo->focal,
 			'img_direction' => null,
 			'is_public' => $this->photo->is_public,

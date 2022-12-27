@@ -132,7 +132,9 @@ class PhotoController extends Controller
 			Configs::getValueAsBool('skip_duplicates')
 		));
 
-		return PhotoResource::make($create->add($copiedFile, $request->album()));
+		$photo = $create->add($copiedFile, $request->album());
+
+		return PhotoResource::make($photo);
 	}
 
 	/**
