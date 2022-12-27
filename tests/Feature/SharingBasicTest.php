@@ -23,7 +23,7 @@ class SharingBasicTest extends Base\BaseSharingTest
 		$response->assertExactJson([
 			'shared' => [],
 			'albums' => [],
-			'users' => [['id' => 1, 'username' => 'admin']],
+			'users' => [],
 		]);
 	}
 
@@ -42,7 +42,7 @@ class SharingBasicTest extends Base\BaseSharingTest
 				['id' => $albumID1, 'title' => self::ALBUM_TITLE_1],
 				['id' => $albumID2, 'title' => self::ALBUM_TITLE_1 . '/' . self::ALBUM_TITLE_2],
 			],
-			'users' => [['id' => 1, 'username' => 'admin']],
+			'users' => [],
 		]);
 	}
 
