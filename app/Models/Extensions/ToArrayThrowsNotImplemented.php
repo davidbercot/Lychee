@@ -14,6 +14,6 @@ trait ToArrayThrowsNotImplemented
 {
 	final public function toArray(): array
 	{
-		throw new NotImplementedException('DO NOT USE ANYMORE THIS FUNCTIONS');
+		throw new NotImplementedException('->toArray() is deprecated, use Resources instead.');
 	}
 }
