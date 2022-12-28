@@ -11,6 +11,10 @@ use Illuminate\Support\Collection;
  */
 class PositionDataResource extends JsonResource
 {
+	public ?string $id;
+	public ?string $title;
+	public ?string $track_url;
+
 	/**
 	 * @param string|null $id        the ID of the album; `null` for root album
 	 * @param string|null $title     the title of the album; `null` if untitled
@@ -18,12 +22,15 @@ class PositionDataResource extends JsonResource
 	 * @param string|null $track_url the URL of the album's track
 	 */
 	public function __construct(
-		public ?string $id,
-		public ?string $title,
-		public Collection $photos,
-		public ?string $track_url)
-	{
-		parent::__construct(null);
+		?string $id,
+		?string $title,
+		Collection $photos,
+		?string $track_url
+	) {
+		parent::__construct($photos);
+		$this->id = $id;
+		$this->title = $title;
+		$this->track_url = $track_url;
 	}
 
 	/**
@@ -38,7 +45,7 @@ class PositionDataResource extends JsonResource
 		return [
 			'id' => $this->id,
 			'title' => $this->title,
-			'photos' => PhotoResource::collection($this->photos)->toArray($request),
+			'photos' => PhotoResource::collection($this->resouce)->toArray($request),
 			'track_url' => $this->track_url,
 		];
 	}

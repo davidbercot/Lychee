@@ -7,6 +7,9 @@ use App\Policies\UserPolicy;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Gate;
 
+/**
+ * Data Transfer Object (DTO) to transmit the rights of an user.
+ */
 class UserRightsResource extends JsonResource
 {
 	public function __construct()

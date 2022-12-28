@@ -35,7 +35,6 @@ use Laragear\WebAuthn\WebAuthnAuthentication;
  * @property bool                                                  $may_upload
  * @property bool                                                  $may_edit_own_settings
  * @property string|null                                           $token
- * @property bool                                                  $has_token
  * @property string|null                                           $remember_token
  * @property Collection<BaseAlbumImpl>                             $albums
  * @property DatabaseNotificationCollection|DatabaseNotification[] $notifications
@@ -173,13 +172,5 @@ class User extends Authenticatable implements WebAuthnAuthenticatable
 		WebAuthnCredential::where('authenticatable_id', '=', $this->id)->delete();
 
 		return $this->parentDelete();
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function getHasTokenAttribute(): bool
-	{
-		return $this->token !== null;
 	}
 }

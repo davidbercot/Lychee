@@ -5,6 +5,9 @@ namespace App\Http\Resources\Sharing;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 
+/**
+ * Data Transfer Object (DTO) to transmit the list of shares to the client.
+ */
 class SharesResource extends JsonResource
 {
 	public function __construct(

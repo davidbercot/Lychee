@@ -31,7 +31,7 @@ class UserResource extends JsonResource
 
 		return [
 			'id' => $this->resource->id,
-			'has_token' => $this->resource->has_token,
+			'has_token' => $this->resource->token !== null,
 			'username' => $this->resource->username,
 			'email' => $this->resource->email,
 		];

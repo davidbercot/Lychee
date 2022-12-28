@@ -7,6 +7,9 @@ use App\Policies\PhotoPolicy;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Gate;
 
+/**
+ * This DTO provides the information whether some actions are available to the user.
+ */
 class PhotoRightsResource extends JsonResource
 {
 	public bool $can_edit;

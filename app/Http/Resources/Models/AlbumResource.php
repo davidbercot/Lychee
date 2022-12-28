@@ -6,6 +6,7 @@ use App\Http\Resources\Rights\AlbumRightsResource;
 use App\Http\Resources\Traits\WithStatus;
 use App\Models\Album;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Basic album conversion when using get().
@@ -32,7 +33,7 @@ class AlbumResource extends JsonResource
 			// basic
 			'id' => $this->resource->id,
 			'title' => $this->resource->title,
-			'owner_name' => $this->resource->owner->name,
+			'owner_name' => $this->when(Auth::check(), $this->resource->owner->name),
 
 			// attributes
 			'description' => $this->resource->description,

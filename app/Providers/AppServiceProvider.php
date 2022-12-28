@@ -66,6 +66,10 @@ class AppServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
+		/**
+		 * By default resources are wrapping results in a 'data' attribute.
+		 * We disable that.
+		 */
 		JsonResource::withoutWrapping();
 
 		if (config('app.db_log_sql', false) === true) {

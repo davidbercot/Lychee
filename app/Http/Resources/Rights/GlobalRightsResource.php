@@ -4,6 +4,9 @@ namespace App\Http\Resources\Rights;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * This DTO provides the application rights of the user.
+ */
 class GlobalRightsResource extends JsonResource
 {
 	public function __construct()
