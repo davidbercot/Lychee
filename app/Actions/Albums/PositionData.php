@@ -4,7 +4,7 @@ namespace App\Actions\Albums;
 
 use App\Contracts\Exceptions\InternalLycheeException;
 use App\Enum\SizeVariantType;
-use App\Http\Resources\Models\PositionDataResource;
+use App\Http\Resources\Collections\PositionDataResource;
 use App\Models\Configs;
 use App\Models\Photo;
 use App\Policies\PhotoQueryPolicy;

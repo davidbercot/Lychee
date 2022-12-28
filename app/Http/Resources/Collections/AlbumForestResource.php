@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Resources\Models;
+namespace App\Http\Resources\Collections;
 
+use App\Http\Resources\Models\AlbumTreeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 

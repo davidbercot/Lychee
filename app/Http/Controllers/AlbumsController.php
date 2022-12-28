@@ -6,9 +6,9 @@ use App\Actions\Albums\PositionData;
 use App\Actions\Albums\Top;
 use App\Actions\Albums\Tree;
 use App\Contracts\Exceptions\LycheeException;
-use App\Http\Resources\Models\AlbumForestResource;
-use App\Http\Resources\Models\PositionDataResource;
-use App\Http\Resources\Models\TopAlbumsResource;
+use App\Http\Resources\Collections\AlbumForestResource;
+use App\Http\Resources\Collections\PositionDataResource;
+use App\Http\Resources\Collections\TopAlbumsResource;
 use App\Models\Configs;
 use Illuminate\Routing\Controller;
 

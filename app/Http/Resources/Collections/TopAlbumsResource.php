@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Models;
+namespace App\Http\Resources\Collections;
 
+use App\Http\Resources\Models\AlbumResource;
+use App\Http\Resources\Models\SmartAlbumResource;
+use App\Http\Resources\Models\TagAlbumResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 

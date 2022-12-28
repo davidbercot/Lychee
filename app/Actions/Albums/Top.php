@@ -9,7 +9,7 @@ use App\Enum\OrderSortingType;
 use App\Exceptions\ConfigurationKeyMissingException;
 use App\Exceptions\Internal\InvalidOrderDirectionException;
 use App\Factories\AlbumFactory;
-use App\Http\Resources\Models\TopAlbumsResource;
+use App\Http\Resources\Collections\TopAlbumsResource;
 use App\Models\Album;
 use App\Models\Configs;
 use App\Models\Extensions\SortingDecorator;

@@ -7,6 +7,11 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class AlbumTreeResource extends JsonResource
 {
+	public function __construct(Album $album)
+	{
+		parent::__construct($album);
+	}
+
 	/**
 	 * Transform the resource into an array.
 	 *
@@ -16,15 +21,13 @@ class AlbumTreeResource extends JsonResource
 	 */
 	public function toArray($request)
 	{
-		/** @var Album $album */
-		$album = $this->resource;
-
 		return [
 			// basic
-			'id' => $album->id,
-			'title' => $album->title,
-			'parent_id' => $album->parent_id,
-			'albums' => AlbumTreeResource::collection($this->whenLoaded('children'), $album->children),
+			'id' => $this->resource->id,
+			'title' => $this->resource->title,
+			'parent_id' => $this->resource->parent_id,
+			'thumb' => $this->resource->thumb,
+			'albums' => AlbumTreeResource::collection($this->whenLoaded('children')),
 		];
 	}
 }
