@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Models;
 
-use App\Http\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 
 class AlbumForestResource extends JsonResource
@@ -11,7 +11,7 @@ class AlbumForestResource extends JsonResource
 		private Collection $albums,
 		private ?Collection $sharedAlbums = null
 	) {
-		parent::__construct();
+		parent::__construct(null);
 
 		$this->albums = $albums;
 		$this->sharedAlbums = $sharedAlbums ?? new Collection();
@@ -27,8 +27,8 @@ class AlbumForestResource extends JsonResource
 	public function toArray($request)
 	{
 		return [
-			'albums' => AlbumTreeResource::collection($this->albums),
-			'shared_albums' => AlbumTreeResource::collection($this->sharedAlbums),
+			'albums' => AlbumTreeResource::collection($this->albums)->toArray($request),
+			'shared_albums' => AlbumTreeResource::collection($this->sharedAlbums)->toArray($request),
 		];
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Sharing;
 
-use App\Http\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 
 class SharesResource extends JsonResource
@@ -12,7 +12,7 @@ class SharesResource extends JsonResource
 		public Collection $albums,
 		public Collection $users)
 	{
-		parent::__construct();
+		parent::__construct(null);
 	}
 
 	/**
@@ -25,9 +25,9 @@ class SharesResource extends JsonResource
 	public function toArray($request): array
 	{
 		return [
-			'shared' => SharedAlbumResource::collection($this->shared),
-			'albums' => ListedAlbumsResource::collection($this->albums),
-			'users' => UserSharedResource::collection($this->users),
+			'shared' => SharedAlbumResource::collection($this->shared)->toArray($request),
+			'albums' => ListedAlbumsResource::collection($this->albums)->toArray($request),
+			'users' => UserSharedResource::collection($this->users)->toArray($request),
 		];
 	}
 }

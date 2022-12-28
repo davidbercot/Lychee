@@ -2,35 +2,30 @@
 
 namespace App\Http\Resources\Rights;
 
-use App\Http\Resources\JsonResource;
 use App\Models\Photo;
 use App\Policies\PhotoPolicy;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Gate;
 
 class PhotoRightsResource extends JsonResource
 {
-	public function __construct(
-		public bool $can_edit,
-		public bool $can_download,
-		public bool $can_access_full_photo
-	) {
-		parent::__construct();
-	}
+	public bool $can_edit;
+	public bool $can_download;
+	public bool $can_access_full_photo;
 
 	/**
 	 * Given a photo, returns the access rights associated to it.
 	 *
 	 * @param Photo $photo
 	 *
-	 * @return self
+	 * @return void
 	 */
-	public static function ofPhoto(Photo $photo): self
+	public function __construct(Photo $photo)
 	{
-		return new self(
-			can_edit: Gate::check(PhotoPolicy::CAN_EDIT, [Photo::class, $photo]),
-			can_download: Gate::check(PhotoPolicy::CAN_DOWNLOAD, [Photo::class, $photo]),
-			can_access_full_photo: Gate::check(PhotoPolicy::CAN_ACCESS_FULL_PHOTO, [Photo::class, $photo]),
-		);
+		parent::__construct(null);
+		$this->can_edit = Gate::check(PhotoPolicy::CAN_EDIT, [Photo::class, $photo]);
+		$this->can_download = Gate::check(PhotoPolicy::CAN_DOWNLOAD, [Photo::class, $photo]);
+		$this->can_access_full_photo = Gate::check(PhotoPolicy::CAN_ACCESS_FULL_PHOTO, [Photo::class, $photo]);
 	}
 
 	/**

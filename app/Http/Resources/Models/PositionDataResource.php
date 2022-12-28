@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Models;
 
-use App\Http\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 
 class PositionDataResource extends JsonResource
@@ -19,7 +19,7 @@ class PositionDataResource extends JsonResource
 		public Collection $photos,
 		public ?string $track_url)
 	{
-		parent::__construct();
+		parent::__construct(null);
 	}
 
 	/**
@@ -34,7 +34,7 @@ class PositionDataResource extends JsonResource
 		return [
 			'id' => $this->id,
 			'title' => $this->title,
-			'photos' => PhotoResource::collection($this->photos),
+			'photos' => PhotoResource::collection($this->photos)->toArray($request),
 			'track_url' => $this->track_url,
 		];
 	}

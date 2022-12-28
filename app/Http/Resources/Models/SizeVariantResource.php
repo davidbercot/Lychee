@@ -2,16 +2,31 @@
 
 namespace App\Http\Resources\Models;
 
-use App\Http\Resources\JsonResource;
 use App\Models\SizeVariant;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class SizeVariantResource extends JsonResource
 {
+	private bool $downgrade = false;
+
 	public function __construct(
 		private SizeVariant $sizeVariant,
-		private bool $downgrade = false,
 	) {
-		parent::__construct();
+		parent::__construct($sizeVariant);
+	}
+
+	/**
+	 * Set downgrade in flow mode.
+	 *
+	 * @param bool $downgrade
+	 *
+	 * @return SizeVariantResource
+	 */
+	public function setDowngrade(bool $downgrade): self
+	{
+		$this->downgrade = $downgrade;
+
+		return $this;
 	}
 
 	/**

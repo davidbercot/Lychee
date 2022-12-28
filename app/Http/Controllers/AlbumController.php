@@ -63,7 +63,7 @@ class AlbumController extends Controller
 	{
 		$album = $create->create($request->title(), $request->parentAlbum());
 
-		return new AlbumResource($album, 201);
+		return AlbumResource::make($album)->setStatus(201);
 	}
 
 	/**
@@ -80,7 +80,7 @@ class AlbumController extends Controller
 	{
 		$tagAlbum = $create->create($request->title(), $request->tags());
 
-		return new TagAlbumResource($tagAlbum, 201);
+		return TagAlbumResource::make($tagAlbum)->setStatus(201);
 	}
 
 	/**

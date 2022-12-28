@@ -3,36 +3,32 @@
 namespace App\Http\Resources\Rights;
 
 use App\Contracts\Models\AbstractAlbum;
-use App\Http\Resources\JsonResource;
 use App\Policies\AlbumPolicy;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Gate;
 
 class AlbumRightsResource extends JsonResource
 {
-	public function __construct(
-		public bool $can_edit,
-		public bool $can_share_with_users,
-		public bool $can_download,
-		public bool $can_upload,
-	) {
-		parent::__construct();
-	}
+	public bool $can_edit;
+	public bool $can_share_with_users;
+	public bool $can_download;
+	public bool $can_upload;
 
 	/**
 	 * Given an album, returns the access rights associated to it.
 	 *
 	 * @param AbstractAlbum $abstractAlbum
 	 *
-	 * @return self
+	 * @return void
 	 */
-	public static function ofAlbum(AbstractAlbum $abstractAlbum): self
+	public function __construct(AbstractAlbum $abstractAlbum)
 	{
-		return new self(
-			can_edit: Gate::check(AlbumPolicy::CAN_EDIT, [AbstractAlbum::class, $abstractAlbum]),
-			can_share_with_users: Gate::check(AlbumPolicy::CAN_SHARE_WITH_USERS, [AbstractAlbum::class, $abstractAlbum]),
-			can_download: Gate::check(AlbumPolicy::CAN_DOWNLOAD, [AbstractAlbum::class, $abstractAlbum]),
-			can_upload: Gate::check(AlbumPolicy::CAN_UPLOAD, [AbstractAlbum::class, $abstractAlbum]),
-		);
+		parent::__construct(null);
+
+		$this->can_edit = Gate::check(AlbumPolicy::CAN_EDIT, [AbstractAlbum::class, $abstractAlbum]);
+		$this->can_share_with_users = Gate::check(AlbumPolicy::CAN_SHARE_WITH_USERS, [AbstractAlbum::class, $abstractAlbum]);
+		$this->can_download = Gate::check(AlbumPolicy::CAN_DOWNLOAD, [AbstractAlbum::class, $abstractAlbum]);
+		$this->can_upload = Gate::check(AlbumPolicy::CAN_UPLOAD, [AbstractAlbum::class, $abstractAlbum]);
 	}
 
 	/**

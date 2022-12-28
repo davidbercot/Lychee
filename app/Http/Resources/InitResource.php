@@ -7,10 +7,16 @@ use App\Http\Resources\Rights\GlobalRightsResource;
 use App\Metadata\Versions\FileVersion;
 use App\Metadata\Versions\GitHubVersion;
 use App\Models\Configs;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
 class InitResource extends JsonResource
 {
+	public function __construct()
+	{
+		parent::__construct(null);
+	}
+
 	/**
 	 * Transform the resource into an array.
 	 *
@@ -30,8 +36,8 @@ class InitResource extends JsonResource
 
 		return [
 			'user' => $this->when(Auth::check(), UserResource::make(Auth::user()), null),
-			'rights' => GlobalRightsResource::make(),
-			'config' => ConfigurationResource::make(),
+			'rights' => GlobalRightsResource::make()->toArray($request),
+			'config' => ConfigurationResource::make()->toArray($request),
 			'update_json' => !$fileVersion->isUpToDate(),
 			'update_available' => !$gitHubVersion->isUpToDate(),
 		];

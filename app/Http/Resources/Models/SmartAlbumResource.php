@@ -3,16 +3,15 @@
 namespace App\Http\Resources\Models;
 
 use App\DTO\AlbumProtectionPolicy;
-use App\Http\Resources\JsonResource;
 use App\Http\Resources\Rights\AlbumRightsResource;
 use App\SmartAlbums\BaseSmartAlbum;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class SmartAlbumResource extends JsonResource
 {
-	public function __construct(
-		private BaseSmartAlbum $smartAlbum
-	) {
-		parent::__construct();
+	public function __construct(BaseSmartAlbum $smartAlbum)
+	{
+		parent::__construct($smartAlbum);
 	}
 
 	/**
@@ -26,18 +25,18 @@ class SmartAlbumResource extends JsonResource
 	{
 		return [
 			// basic
-			'id' => $this->smartAlbum->id,
-			'title' => $this->smartAlbum->title,
+			'id' => $this->resource->id,
+			'title' => $this->resource->title,
 
 			// children
-			'photos' => $this->whenRelationshipIsLoaded($this->smartAlbum, 'photos', PhotoResource::collection($this->smartAlbum->photos), null),
+			'photos' => $this->whenLoaded('photos', PhotoResource::collection($this->resource->photos), null),
 
 			// thumb
-			'thumb' => $this->smartAlbum->thumb,
+			'thumb' => $this->resource->thumb,
 
 			// security
-			'policy' => AlbumProtectionPolicy::ofSmartAlbum($this->smartAlbum),
-			'rights' => AlbumRightsResource::ofAlbum($this->smartAlbum)->toArray($request),
+			'policy' => AlbumProtectionPolicy::ofSmartAlbum($this->resource)->toArray(),
+			'rights' => AlbumRightsResource::make($this->resource)->toArray($request),
 		];
 	}
 }

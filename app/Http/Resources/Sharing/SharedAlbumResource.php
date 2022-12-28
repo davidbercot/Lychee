@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Sharing;
 
 use App\Actions\Sharing\SharedAlbum;
-use App\Http\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class SharedAlbumResource extends JsonResource
 {
@@ -12,9 +12,9 @@ class SharedAlbumResource extends JsonResource
 	 *
 	 * @return void
 	 */
-	public function __construct(public object $albumShared)
+	public function __construct(object $albumShared)
 	{
-		parent::__construct();
+		parent::__construct($albumShared);
 	}
 
 	/**
@@ -27,11 +27,11 @@ class SharedAlbumResource extends JsonResource
 	public function toArray($request): array
 	{
 		return [
-			'id' => $this->albumShared->id,
-			'user_id' => $this->albumShared->user_id,
-			'album_id' => $this->albumShared->album_id,
-			'username' => $this->albumShared->username,
-			'title' => $this->albumShared->title,
+			'id' => $this->resource->id,
+			'user_id' => $this->resource->user_id,
+			'album_id' => $this->resource->album_id,
+			'username' => $this->resource->username,
+			'title' => $this->resource->title,
 		];
 	}
 }

@@ -3,24 +3,23 @@
 namespace App\Http\Resources\Models;
 
 use App\Enum\SizeVariantType;
-use App\Http\Resources\JsonResource;
 use App\Http\Resources\Rights\PhotoRightsResource;
+use App\Http\Resources\Traits\WithStatus;
 use App\Models\Extensions\SizeVariants;
 use App\Models\Photo;
 use App\Policies\PhotoPolicy;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Support\Facades\Gate;
 
 class PhotoResource extends JsonResource
 {
-	private Photo $photo;
+	use WithStatus;
 
 	public function __construct(
-		Photo $photo,
-		int $status = 200
+		Photo $photo
 	) {
-		parent::__construct($status);
-		$this->photo = $photo;
+		parent::__construct($photo);
 	}
 
 	/**
@@ -33,12 +32,12 @@ class PhotoResource extends JsonResource
 	public function toArray($request)
 	{
 		/** @var SizeVariants|MissingValue $size_variants */
-		$size_variants = $this->whenRelationshipIsLoaded($this->photo, 'size_variants');
+		$size_variants = $this->whenLoaded('size_variants');
 		if ($size_variants instanceof MissingValue) {
 			$size_variants = null;
 		}
-		$downgrade = !Gate::check(PhotoPolicy::CAN_ACCESS_FULL_PHOTO, [Photo::class, $this->photo]) &&
-			!$this->photo->isVideo() &&
+		$downgrade = !Gate::check(PhotoPolicy::CAN_ACCESS_FULL_PHOTO, [Photo::class, $this->resource]) &&
+			!$this->resource->isVideo() &&
 			$size_variants?->hasMedium() === true;
 
 		$medium = $size_variants?->getSizeVariant(SizeVariantType::MEDIUM);
@@ -50,46 +49,46 @@ class PhotoResource extends JsonResource
 		$thumb2x = $size_variants?->getSizeVariant(SizeVariantType::THUMB2X);
 
 		return [
-			'id' => $this->photo->id,
-			'album_id' => $this->photo->album_id,
-			'altitude' => $this->photo->altitude,
-			'aperture' => $this->photo->aperture,
-			'checksum' => $this->photo->checksum,
-			'created_at' => $this->photo->created_at,
-			'description' => $this->photo->description,
-			'focal' => $this->photo->focal,
+			'id' => $this->resource->id,
+			'album_id' => $this->resource->album_id,
+			'altitude' => $this->resource->altitude,
+			'aperture' => $this->resource->aperture,
+			'checksum' => $this->resource->checksum,
+			'created_at' => $this->resource->created_at,
+			'description' => $this->resource->description,
+			'focal' => $this->resource->focal,
 			'img_direction' => null,
-			'is_public' => $this->photo->is_public,
-			'is_starred' => $this->photo->is_starred,
-			'iso' => $this->photo->iso,
-			'latitude' => $this->photo->latitude,
-			'lens' => $this->photo->lens,
-			'license' => $this->photo->license,
-			'live_photo_checksum' => $this->photo->live_photo_checksum,
-			'live_photo_content_id' => $this->photo->live_photo_content_id,
-			'live_photo_url' => $this->photo->live_photo_url,
-			'location' => $this->photo->location,
-			'longitude' => $this->photo->longitude,
-			'make' => $this->photo->make,
-			'model' => $this->photo->model,
-			'original_checksum' => $this->photo->original_checksum,
-			'shutter' => $this->photo->shutter,
+			'is_public' => $this->resource->is_public,
+			'is_starred' => $this->resource->is_starred,
+			'iso' => $this->resource->iso,
+			'latitude' => $this->resource->latitude,
+			'lens' => $this->resource->lens,
+			'license' => $this->resource->license,
+			'live_photo_checksum' => $this->resource->live_photo_checksum,
+			'live_photo_content_id' => $this->resource->live_photo_content_id,
+			'live_photo_url' => $this->resource->live_photo_url,
+			'location' => $this->resource->location,
+			'longitude' => $this->resource->longitude,
+			'make' => $this->resource->make,
+			'model' => $this->resource->model,
+			'original_checksum' => $this->resource->original_checksum,
+			'shutter' => $this->resource->shutter,
 			'size_variants' => [
 				'medium' => $medium === null ? null : SizeVariantResource::make($medium)->toArray($request),
 				'medium2x' => $medium2x === null ? null : SizeVariantResource::make($medium2x)->toArray($request),
-				'original' => $original === null ? null : SizeVariantResource::make($original, $downgrade)->toArray($request),
+				'original' => $original === null ? null : SizeVariantResource::make($original)->setDowngrade($downgrade)->toArray($request),
 				'small' => $small === null ? null : SizeVariantResource::make($small)->toArray($request),
 				'small2x' => $small2x === null ? null : SizeVariantResource::make($small2x)->toArray($request),
 				'thumb' => $thumb === null ? null : SizeVariantResource::make($thumb)->toArray($request),
 				'thumb2x' => $thumb2x === null ? null : SizeVariantResource::make($thumb2x)->toArray($request),
 			],
-			'tags' => $this->photo->tags,
-			'taken_at' => $this->photo->taken_at,
-			'taken_at_orig_tz' => $this->photo->taken_at_orig_tz,
-			'title' => $this->photo->title,
-			'type' => $this->photo->type,
-			'updated_at' => $this->photo->updated_at,
-			'rights' => PhotoRightsResource::ofPhoto($this->photo)->toArray($request),
+			'tags' => $this->resource->tags,
+			'taken_at' => $this->resource->taken_at,
+			'taken_at_orig_tz' => $this->resource->taken_at_orig_tz,
+			'title' => $this->resource->title,
+			'type' => $this->resource->type,
+			'updated_at' => $this->resource->updated_at,
+			'rights' => PhotoRightsResource::make($this->resource)->toArray($request),
 		];
 	}
 }

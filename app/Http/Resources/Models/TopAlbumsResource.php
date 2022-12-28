@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Models;
 
-use App\Http\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 
 /**
@@ -23,7 +23,7 @@ class TopAlbumsResource extends JsonResource
 		public Collection $albums,
 		public ?Collection $shared_albums = null
 	) {
-		parent::__construct();
+		parent::__construct(null);
 
 		$this->shared_albums ??= new Collection();
 	}

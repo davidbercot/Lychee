@@ -92,6 +92,6 @@ class UsersController extends Controller
 	{
 		$user = $create->do($request->username(), $request->password(), $request->mayUpload(), $request->mayEditOwnSettings());
 
-		return UserManagementResource::make($user, 201);
+		return UserManagementResource::make($user)->setStatus(201);
 	}
 }

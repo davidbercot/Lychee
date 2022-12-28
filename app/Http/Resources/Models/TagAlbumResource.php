@@ -2,20 +2,18 @@
 
 namespace App\Http\Resources\Models;
 
-use App\Http\Resources\JsonResource;
 use App\Http\Resources\Rights\AlbumRightsResource;
+use App\Http\Resources\Traits\WithStatus;
 use App\Models\TagAlbum;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class TagAlbumResource extends JsonResource
 {
-	private TagAlbum $tagAlbum;
+	use WithStatus;
 
-	public function __construct(
-		TagAlbum $tagAlbum,
-		int $status = 200
-	) {
-		parent::__construct($status);
-		$this->tagAlbum = $tagAlbum;
+	public function __construct(TagAlbum $tagAlbum)
+	{
+		parent::__construct($tagAlbum);
 	}
 
 	/**
@@ -29,30 +27,30 @@ class TagAlbumResource extends JsonResource
 	{
 		return [
 			// basic
-			'id' => $this->tagAlbum->id,
-			'title' => $this->tagAlbum->title,
-			'owner_name' => $this->tagAlbum->owner->name,
+			'id' => $this->resource->id,
+			'title' => $this->resource->title,
+			'owner_name' => $this->resource->owner->name,
 			'is_tag_album' => true,
 
 			// attributes
-			'description' => $this->tagAlbum->description,
-			'show_tags' => $this->tagAlbum->show_tags,
+			'description' => $this->resource->description,
+			'show_tags' => $this->resource->show_tags,
 
 			// children
-			'photos' => $this->whenRelationshipIsLoaded($this->tagAlbum, 'photos', PhotoResource::collection($this->tagAlbum->photos), null),
+			'photos' => $this->whenLoaded('photos', PhotoResource::collection($this->resource->photos), null),
 
 			// thumb
-			'thumb' => $this->tagAlbum->thumb,
+			'thumb' => $this->resource->thumb,
 
 			// timestamps
-			'created_at' => $this->tagAlbum->created_at,
-			'updated_at' => $this->tagAlbum->updated_at,
-			'max_taken_at' => $this->tagAlbum->min_taken_at,
-			'min_taken_at' => $this->tagAlbum->max_taken_at,
+			'created_at' => $this->resource->created_at,
+			'updated_at' => $this->resource->updated_at,
+			'max_taken_at' => $this->resource->min_taken_at,
+			'min_taken_at' => $this->resource->max_taken_at,
 
 			// security
-			'policy' => $this->tagAlbum->policy,
-			'rights' => AlbumRightsResource::ofAlbum($this->tagAlbum)->toArray($request),
+			'policy' => $this->resource->policy,
+			'rights' => AlbumRightsResource::make($this->resource)->toArray($request),
 		];
 	}
 }

@@ -2,10 +2,15 @@
 
 namespace App\Http\Resources\Rights;
 
-use App\Http\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class GlobalRightsResource extends JsonResource
 {
+	public function __construct()
+	{
+		parent::__construct(null);
+	}
+
 	/**
 	 * Transform the resource into an array.
 	 *
@@ -16,10 +21,10 @@ class GlobalRightsResource extends JsonResource
 	public function toArray($request)
 	{
 		return [
-			'root_album' => RootAlbumRightsResource::make(),
-			'settings' => SettingsRightsResource::make(),
-			'user_management' => UserManagementRightsResource::make(),
-			'user' => UserRightsResource::make(),
+			'root_album' => RootAlbumRightsResource::make()->toArray($request),
+			'settings' => SettingsRightsResource::make()->toArray($request),
+			'user_management' => UserManagementRightsResource::make()->toArray($request),
+			'user' => UserRightsResource::make()->toArray($request),
 		];
 	}
 }

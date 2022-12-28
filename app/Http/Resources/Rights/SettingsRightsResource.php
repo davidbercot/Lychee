@@ -2,13 +2,18 @@
 
 namespace App\Http\Resources\Rights;
 
-use App\Http\Resources\JsonResource;
 use App\Models\Configs;
 use App\Policies\SettingsPolicy;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Gate;
 
 class SettingsRightsResource extends JsonResource
 {
+	public function __construct()
+	{
+		parent::__construct(null);
+	}
+
 	/**
 	 * Transform the resource into an array.
 	 *

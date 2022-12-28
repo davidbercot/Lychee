@@ -3,7 +3,7 @@
 namespace App\Http\Resources\Sharing;
 
 use App\Actions\Sharing\UserShared;
-use App\Http\Resources\JsonResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserSharedResource extends JsonResource
 {
@@ -12,9 +12,9 @@ class UserSharedResource extends JsonResource
 	 *
 	 * @return void
 	 */
-	public function __construct(public object $user)
+	public function __construct(object $user)
 	{
-		parent::__construct();
+		parent::__construct($user);
 	}
 
 	/**
@@ -27,8 +27,8 @@ class UserSharedResource extends JsonResource
 	public function toArray($request): array
 	{
 		return [
-			'id' => $this->user->id,
-			'username' => $this->user->username,
+			'id' => $this->resource->id,
+			'username' => $this->resource->username,
 		];
 	}
 }

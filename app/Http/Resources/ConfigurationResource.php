@@ -9,11 +9,17 @@ use App\Facades\Lang;
 use App\Metadata\Versions\InstalledVersion;
 use App\Models\Configs;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Feed\Helpers\FeedContentType;
 
 class ConfigurationResource extends JsonResource
 {
+	public function __construct()
+	{
+		parent::__construct(null);
+	}
+
 	/**
 	 * Transform the resource into an array.
 	 *

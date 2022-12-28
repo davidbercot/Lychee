@@ -3,12 +3,17 @@
 namespace App\Http\Resources\Rights;
 
 use App\Contracts\Models\AbstractAlbum;
-use App\Http\Resources\JsonResource;
 use App\Policies\AlbumPolicy;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Gate;
 
 class RootAlbumRightsResource extends JsonResource
 {
+	public function __construct()
+	{
+		parent::__construct(null);
+	}
+
 	/**
 	 * Transform the resource into an array.
 	 *

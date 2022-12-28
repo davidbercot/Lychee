@@ -2,20 +2,18 @@
 
 namespace App\Http\Resources\Models;
 
-use App\Http\Resources\JsonResource;
 use App\Http\Resources\Rights\AlbumRightsResource;
+use App\Http\Resources\Traits\WithStatus;
 use App\Models\Album;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AlbumResource extends JsonResource
 {
-	private Album $album;
+	use WithStatus;
 
-	public function __construct(
-		Album $album,
-		int $status = 200
-	) {
-		parent::__construct($status);
-		$this->album = $album;
+	public function __construct(Album $album)
+	{
+		parent::__construct($album);
 	}
 
 	/**
@@ -29,35 +27,35 @@ class AlbumResource extends JsonResource
 	{
 		return [
 			// basic
-			'id' => $this->album->id,
-			'title' => $this->album->title,
-			'owner_name' => $this->album->owner->name,
+			'id' => $this->resource->id,
+			'title' => $this->resource->title,
+			'owner_name' => $this->resource->owner->name,
 
 			// attributes
-			'description' => $this->album->description,
-			'track_url' => $this->album->track_url,
-			'license' => $this->album->license,
-			'sorting' => $this->album->sorting,
+			'description' => $this->resource->description,
+			'track_url' => $this->resource->track_url,
+			'license' => $this->resource->license,
+			'sorting' => $this->resource->sorting,
 
 			// children
-			'parent_id' => $this->album->parent_id,
-			'has_albums' => !$this->album->isLeaf(),
-			'albums' => $this->whenRelationshipIsLoaded($this->album, 'children', AlbumResource::collection($this->album->children), null),
-			'photos' => $this->whenRelationshipIsLoaded($this->album, 'photos', PhotoResource::collection($this->album->photos), null),
+			'parent_id' => $this->resource->parent_id,
+			'has_albums' => !$this->resource->isLeaf(),
+			'albums' => $this->whenLoaded('children', AlbumResource::collection($this->resource->children), null),
+			'photos' => $this->whenLoaded('photos', PhotoResource::collection($this->resource->photos), null),
 
 			// thumb
-			'cover_id' => $this->album->cover_id,
-			'thumb' => $this->album->thumb,
+			'cover_id' => $this->resource->cover_id,
+			'thumb' => $this->resource->thumb,
 
 			// timestamps
-			'created_at' => $this->album->created_at,
-			'updated_at' => $this->album->updated_at,
-			'max_taken_at' => $this->album->min_taken_at,
-			'min_taken_at' => $this->album->max_taken_at,
+			'created_at' => $this->resource->created_at,
+			'updated_at' => $this->resource->updated_at,
+			'max_taken_at' => $this->resource->min_taken_at,
+			'min_taken_at' => $this->resource->max_taken_at,
 
 			// security
-			'policy' => $this->album->policy,
-			'rights' => AlbumRightsResource::ofAlbum($this->album)->toArray($request),
+			'policy' => $this->resource->policy,
+			'rights' => AlbumRightsResource::make($this->resource)->toArray($request),
 		];
 	}
 }

@@ -3,17 +3,17 @@
 namespace App\Http\Resources\Models;
 
 use App\Exceptions\Internal\LycheeLogicException;
-use App\Http\Resources\JsonResource;
+use App\Http\Resources\Traits\WithStatus;
 use App\Models\User;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserManagementResource extends JsonResource
 {
-	private ?User $user;
+	use WithStatus;
 
-	public function __construct(?User $user, int $status = 200)
+	public function __construct(?User $user)
 	{
-		parent::__construct($status);
-		$this->user = $user;
+		parent::__construct($user);
 	}
 
 	/**
@@ -25,16 +25,16 @@ class UserManagementResource extends JsonResource
 	 */
 	public function toArray($request)
 	{
-		if ($this->user === null) {
+		if ($this->resource === null) {
 			throw new LycheeLogicException('Trying to convert a null user into an array.');
 		}
 
 		return [
-			'id' => $this->user->id,
-			'username' => $this->user->username,
-			'may_administrate' => $this->user->may_administrate,
-			'may_upload' => $this->user->may_upload,
-			'may_edit_own_settings' => $this->user->may_edit_own_settings,
+			'id' => $this->resource->id,
+			'username' => $this->resource->username,
+			'may_administrate' => $this->resource->may_administrate,
+			'may_upload' => $this->resource->may_upload,
+			'may_edit_own_settings' => $this->resource->may_edit_own_settings,
 		];
 	}
 }
