@@ -82,7 +82,7 @@ class UserController extends Controller
 	 */
 	public function getAuthenticatedUser(): UserResource
 	{
-		return UserResource::make(Auth::user());
+		return UserResource::make(Auth::user() ?? throw new UnauthenticatedException());
 	}
 
 	/**
