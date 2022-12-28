@@ -7,6 +7,9 @@ use App\Http\Resources\Traits\WithStatus;
 use App\Models\Album;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Basic album conversion when using get().
+ */
 class AlbumResource extends JsonResource
 {
 	use WithStatus;

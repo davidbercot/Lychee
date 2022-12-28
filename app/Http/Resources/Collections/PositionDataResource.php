@@ -6,6 +6,9 @@ use App\Http\Resources\Models\PhotoResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 
+/**
+ * Resource returned when querying for pictures on the map.
+ */
 class PositionDataResource extends JsonResource
 {
 	/**

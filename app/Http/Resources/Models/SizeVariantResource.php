@@ -5,26 +5,29 @@ namespace App\Http\Resources\Models;
 use App\Models\SizeVariant;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Size variant conversions.
+ * Supports a noUrl flag which will remove the url on output.
+ */
 class SizeVariantResource extends JsonResource
 {
-	private bool $downgrade = false;
+	private bool $noUrl = false;
 
-	public function __construct(
-		private SizeVariant $sizeVariant,
-	) {
+	public function __construct(SizeVariant $sizeVariant)
+	{
 		parent::__construct($sizeVariant);
 	}
 
 	/**
-	 * Set downgrade in flow mode.
+	 * Set noUrl in flow mode (operations can be chained after).
 	 *
-	 * @param bool $downgrade
+	 * @param bool $noUrl
 	 *
 	 * @return SizeVariantResource
 	 */
-	public function setDowngrade(bool $downgrade): self
+	public function noUrl(bool $noUrl): self
 	{
-		$this->downgrade = $downgrade;
+		$this->noUrl = $noUrl;
 
 		return $this;
 	}
@@ -39,11 +42,11 @@ class SizeVariantResource extends JsonResource
 	public function toArray($request)
 	{
 		return [
-			'type' => $this->sizeVariant->type,
-			'filesize' => $this->sizeVariant->filesize,
-			'height' => $this->sizeVariant->height,
-			'width' => $this->sizeVariant->width,
-			'url' => $this->when(!$this->downgrade, $this->sizeVariant->url),
+			'type' => $this->resource->type,
+			'filesize' => $this->resource->filesize,
+			'height' => $this->resource->height,
+			'width' => $this->resource->width,
+			'url' => $this->when(!$this->noUrl, $this->resource->url),
 		];
 	}
 }

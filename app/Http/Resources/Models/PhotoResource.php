@@ -12,13 +12,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\MissingValue;
 use Illuminate\Support\Facades\Gate;
 
+/**
+ * Photo resource returned when get() or adding a new photo.
+ */
 class PhotoResource extends JsonResource
 {
 	use WithStatus;
 
-	public function __construct(
-		Photo $photo
-	) {
+	public function __construct(Photo $photo)
+	{
 		parent::__construct($photo);
 	}
 
@@ -76,7 +78,7 @@ class PhotoResource extends JsonResource
 			'size_variants' => [
 				'medium' => $medium === null ? null : SizeVariantResource::make($medium)->toArray($request),
 				'medium2x' => $medium2x === null ? null : SizeVariantResource::make($medium2x)->toArray($request),
-				'original' => $original === null ? null : SizeVariantResource::make($original)->setDowngrade($downgrade)->toArray($request),
+				'original' => $original === null ? null : SizeVariantResource::make($original)->noUrl($downgrade)->toArray($request),
 				'small' => $small === null ? null : SizeVariantResource::make($small)->toArray($request),
 				'small2x' => $small2x === null ? null : SizeVariantResource::make($small2x)->toArray($request),
 				'thumb' => $thumb === null ? null : SizeVariantResource::make($thumb)->toArray($request),

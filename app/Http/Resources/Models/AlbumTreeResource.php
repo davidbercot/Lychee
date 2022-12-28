@@ -5,8 +5,18 @@ namespace App\Http\Resources\Models;
 use App\Models\Album;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Slimmed-down when requesting the tree of accessible albums.
+ */
 class AlbumTreeResource extends JsonResource
 {
+	/**
+	 * Album to slim down.
+	 *
+	 * @param Album $album
+	 *
+	 * @return void
+	 */
 	public function __construct(Album $album)
 	{
 		parent::__construct($album);

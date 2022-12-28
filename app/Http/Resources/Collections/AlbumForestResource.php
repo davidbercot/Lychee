@@ -6,6 +6,9 @@ use App\Http\Resources\Models\AlbumTreeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 
+/**
+ * Resource returned when querying for the full tree of acccessible albums.
+ */
 class AlbumForestResource extends JsonResource
 {
 	public function __construct(
