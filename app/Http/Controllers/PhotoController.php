@@ -34,7 +34,7 @@ use App\Models\Configs;
 use App\Models\Photo;
 use App\SmartAlbums\StarredAlbum;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
@@ -316,15 +316,15 @@ class PhotoController extends Controller
 	 * @param DuplicatePhotosRequest $request
 	 * @param Duplicate              $duplicate
 	 *
-	 * @return AnonymousResourceCollection the collection of duplicated photos
+	 * @return JsonResponse the collection of duplicated photos
 	 *
 	 * @throws ModelDBException
 	 */
-	public function duplicate(DuplicatePhotosRequest $request, Duplicate $duplicate): AnonymousResourceCollection
+	public function duplicate(DuplicatePhotosRequest $request, Duplicate $duplicate): JsonResponse
 	{
 		$duplicates = $duplicate->do($request->photos(), $request->album());
 
-		return PhotoResource::collection($duplicates);
+		return PhotoResource::collection($duplicates)->toResponse($request)->setStatusCode(201);
 	}
 
 	/**
