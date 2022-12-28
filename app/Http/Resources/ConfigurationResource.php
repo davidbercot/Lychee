@@ -81,7 +81,6 @@ class ConfigurationResource extends JsonResource
 				'editor_enabled' => Configs::getValueAsBool('editor_enabled'),
 				'force_32bit_ids' => Configs::getValueAsBool('force_32bit_ids'),
 				'force_migration_in_production' => Configs::getValueAsBool('force_migration_in_production'),
-				'gen_demo_js' => Configs::getValueAsBool('gen_demo_js'),
 				'has_exiftool' => Configs::getValueAsBool('has_exiftool'),
 				'has_ffmpeg' => Configs::getValueAsBool('has_ffmpeg'),
 				'hide_version_number' => Configs::getValueAsBool('hide_version_number'),

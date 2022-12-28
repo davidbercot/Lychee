@@ -56,7 +56,7 @@ class PhotoResource extends JsonResource
 			'altitude' => $this->resource->altitude,
 			'aperture' => $this->resource->aperture,
 			'checksum' => $this->resource->checksum,
-			'created_at' => $this->resource->created_at,
+			'created_at' => $this->resource->created_at->toIso8601String(),
 			'description' => $this->resource->description,
 			'focal' => $this->resource->focal,
 			'img_direction' => null,
@@ -85,11 +85,11 @@ class PhotoResource extends JsonResource
 				'thumb2x' => $thumb2x === null ? null : SizeVariantResource::make($thumb2x)->toArray($request),
 			],
 			'tags' => $this->resource->tags,
-			'taken_at' => $this->resource->taken_at,
+			'taken_at' => $this->resource->taken_at?->toIso8601String(),
 			'taken_at_orig_tz' => $this->resource->taken_at_orig_tz,
 			'title' => $this->resource->title,
 			'type' => $this->resource->type,
-			'updated_at' => $this->resource->updated_at,
+			'updated_at' => $this->resource->updated_at->toIso8601String(),
 			'rights' => PhotoRightsResource::make($this->resource)->toArray($request),
 		];
 	}

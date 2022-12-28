@@ -11,7 +11,7 @@ class UserManagementResource extends JsonResource
 {
 	use WithStatus;
 
-	public function __construct(?User $user)
+	public function __construct(User $user)
 	{
 		parent::__construct($user);
 	}

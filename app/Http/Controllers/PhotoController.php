@@ -36,7 +36,6 @@ use App\SmartAlbums\StarredAlbum;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
@@ -134,8 +133,9 @@ class PhotoController extends Controller
 		));
 
 		$photo = $create->add($copiedFile, $request->album());
+		$isNew = $photo->created_at->toIso8601String() === $photo->updated_at->toIso8601String();
 
-		return PhotoResource::make($photo)->setStatus(201);
+		return PhotoResource::make($photo)->setStatus($isNew ? 201 : 200);
 	}
 
 	/**

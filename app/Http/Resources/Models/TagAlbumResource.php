@@ -43,10 +43,10 @@ class TagAlbumResource extends JsonResource
 			'thumb' => $this->resource->thumb,
 
 			// timestamps
-			'created_at' => $this->resource->created_at,
-			'updated_at' => $this->resource->updated_at,
-			'max_taken_at' => $this->resource->min_taken_at,
-			'min_taken_at' => $this->resource->max_taken_at,
+			'created_at' => $this->resource->created_at->toIso8601String(),
+			'updated_at' => $this->resource->updated_at->toIso8601String(),
+			'max_taken_at' => $this->resource->min_taken_at?->toIso8601String(),
+			'min_taken_at' => $this->resource->max_taken_at?->toIso8601String(),
 
 			// security
 			'policy' => $this->resource->policy,
