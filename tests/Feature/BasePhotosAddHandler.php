@@ -490,7 +490,7 @@ abstract class BasePhotosAddHandler extends BasePhotoTest
 			'description' => null,
 			'tags' => [],
 			'license' => 'none',
-			'is_public' => 0,
+			'is_public' => false,
 			'is_starred' => false,
 			'iso' => '400',
 			'make' => 'Canon',

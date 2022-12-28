@@ -150,7 +150,7 @@ class PhotosOperationsTest extends BasePhotoTest
 			'id' => $id,
 			'created_at' => $updated_taken_at->setTimezone('UTC')->format('Y-m-d\TH:i:s.uP'),
 			'license' => 'reserved',
-			'is_public' => 1,
+			'is_public' => true,
 			'is_starred' => true,
 			'tags' => ['night', 'trees'],
 		]);
@@ -191,7 +191,7 @@ class PhotosOperationsTest extends BasePhotoTest
 			'license' => 'reserved',
 			'make' => 'Canon',
 			'model' => 'Canon EOS R',
-			'is_public' => 1,
+			'is_public' => true,
 			'shutter' => '30 s',
 			'is_starred' => true,
 			'tags' => [],

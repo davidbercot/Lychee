@@ -101,7 +101,7 @@ class GeoDataTest extends AbstractTestCase
 					'altitude' => 1633,
 					'taken_at' => $taken_at->format('Y-m-d\TH:i:s.uP'),
 					'taken_at_orig_tz' => $taken_at->getTimezone()->getName(),
-					'is_public' => 0,
+					'is_public' => false,
 					'rights' => [
 						'can_download' => true,
 					],
