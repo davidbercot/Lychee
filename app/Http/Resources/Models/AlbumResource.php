@@ -40,8 +40,8 @@ class AlbumResource extends JsonResource
 			// children
 			'parent_id' => $this->resource->parent_id,
 			'has_albums' => !$this->resource->isLeaf(),
-			'albums' => $this->whenLoaded('children', AlbumResource::collection($this->resource->children), null),
-			'photos' => $this->whenLoaded('photos', PhotoResource::collection($this->resource->photos), null),
+			'albums' => AlbumResource::collection($this->whenLoaded('children')),
+			'photos' => PhotoResource::collection($this->whenLoaded('photos')),
 
 			// thumb
 			'cover_id' => $this->resource->cover_id,

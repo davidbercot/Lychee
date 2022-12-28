@@ -24,7 +24,9 @@ class RootAlbumRightsResource extends JsonResource
 	public function toArray($request)
 	{
 		return [
-			'can_edit' => Gate::check(AlbumPolicy::CAN_UPLOAD, [AbstractAlbum::class, null]), // Needed to allow interaction such as moving albums
+			// Needed to allow interaction such as moving albums
+			'can_edit' => Gate::check(AlbumPolicy::CAN_UPLOAD, [AbstractAlbum::class, null]),
+			// Needed to allow upload at root level (into unsorted)
 			'can_upload' => Gate::check(AlbumPolicy::CAN_UPLOAD, [AbstractAlbum::class, null]),
 			'can_import_from_server' => Gate::check(AlbumPolicy::CAN_IMPORT_FROM_SERVER, [AbstractAlbum::class]),
 		];
